@@ -9,8 +9,9 @@ public:
    int length;
    LinkedList();
    ~LinkedList();
-   void add(int data);
-   void print();
+   void add(Tile tile);
+   void deleteHead();
+   void deleteTile();
 
 private:
    Node* head;
