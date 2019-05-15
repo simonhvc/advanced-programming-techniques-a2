@@ -3,12 +3,12 @@
 
 Node::Node(Tile* tile, Node* next)
 {
-   this -> title = title;
+   this -> tile = tile;
    this -> next = next;      
 }
 
 Node::Node(Node& other)
 {
-   other.title -> title;
+  // other.tile -> tile;
    other.next -> next;
 }

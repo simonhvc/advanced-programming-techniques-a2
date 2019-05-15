@@ -1,10 +1,10 @@
 #include <string>
-#include <linkedList>
+#include <linkedList.cpp>
 #include <bag>
 class Player { 
     std::string name, studentNumber, Email;
     int score;
-    linkedList hand = new linkedList();
+    LinkedList* hand = new LinkedList();
   
     // Default Constructor 
     Player(std::string name, std::string studentNumber, std::string Email) 
@@ -21,8 +21,8 @@ class Player {
       
     }
 
-    std:string handToString(){
-      // cycle through linked list and add comma text +=
+    void handToString(){
+       hand->print();
     }
   
 }; 

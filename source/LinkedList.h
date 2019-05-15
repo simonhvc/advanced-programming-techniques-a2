@@ -10,7 +10,7 @@ public:
    int length;
    LinkedList();
    ~LinkedList();
-   void add(Tile tile);
+   void add(Tile *tile);
    void deleteNode(Tile tile);
    void print();
 
