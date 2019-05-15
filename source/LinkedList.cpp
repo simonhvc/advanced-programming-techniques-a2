@@ -34,11 +34,6 @@ void LinkedList::print(){
 
 void LinkedList::deleteNode(Tile tile){
    if(head->next == NULL)  
-        {  
-            cout << "There is only one node." << 
-                    " The list can't be made empty ";  
-            return;  
-        }  
   
         /* Copy the data of next node to head */
         head->data = head->next->data;  
