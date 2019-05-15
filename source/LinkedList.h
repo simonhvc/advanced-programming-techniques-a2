@@ -6,9 +6,11 @@
 
 class LinkedList {
 public:
-
+   int length;
    LinkedList();
    ~LinkedList();
+   void add(int data);
+   void print();
 
 private:
    Node* head;
