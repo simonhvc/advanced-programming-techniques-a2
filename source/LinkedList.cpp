@@ -22,21 +22,21 @@ void LinkedList::addToFront(Tile *tile){
     this->length++;
 }
 
-void LinkededList::addToEnd(Tile *tile){
+void LinkedList::addToEnd(Tile *tile){
      // Creates a temp to hold the last node and set last's data and next
-    Node *last = new Node;
+    Node* last = new Node(tile, NULL);
 
-    last->data = data;
-    last->next = NULL;
+    //last->tile = tile;
+    //last->next = NULL;
 
     // If the linked list is empty then set head = last
     if (head == NULL) {
         head = last;
     } else {
         // Creates a temp node and sets it to head
-        Node *temp = new Node;
-
-        temp = head;
+        //Node *temp = new Node;
+        Node* temp = new Node( *head);
+        //temp = head;
 
         // Uses temp to find the last node
         while (temp->next != NULL) {
@@ -98,6 +98,6 @@ void LinkedList::deleteNode(Tile tile){
 
 
 //need to delete head and create copy of tile
-*Tile LinkedList::getHead(){
+Tile* LinkedList::getHead(){
     return head->tile;
 }

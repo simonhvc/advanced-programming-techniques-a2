@@ -10,5 +10,5 @@ Node::Node(Tile* tile, Node* next)
 Node::Node(Node& other)
 {
   // other.tile -> tile;
-   other.next -> next;
+   //other.next -> next;
 }
