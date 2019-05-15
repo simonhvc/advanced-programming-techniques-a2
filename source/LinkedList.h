@@ -10,8 +10,8 @@ public:
    LinkedList();
    ~LinkedList();
    void add(Tile tile);
-   void deleteHead();
-   void deleteTile();
+   void deleteNode(Tile tile);
+   void print();
 
 private:
    Node* head;
