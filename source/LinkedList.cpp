@@ -16,10 +16,37 @@ LinkedList::~LinkedList() {
     }
 }
 
-void LinkedList::add(Tile *tile){
+void LinkedList::addToFront(Tile *tile){
     Node* node = new Node(tile, head);
     this->head = node;
     this->length++;
+}
+
+void LinkededList::addToEnd(Tile *tile){
+     // Creates a temp to hold the last node and set last's data and next
+    Node *last = new Node;
+
+    last->data = data;
+    last->next = NULL;
+
+    // If the linked list is empty then set head = last
+    if (head == NULL) {
+        head = last;
+    } else {
+        // Creates a temp node and sets it to head
+        Node *temp = new Node;
+
+        temp = head;
+
+        // Uses temp to find the last node
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+
+        // Appends the last node with last
+        temp->next = last;
+    }
+
 }
 
 void LinkedList::print(){
@@ -69,6 +96,8 @@ void LinkedList::deleteNode(Tile tile){
     return;  
 }
 
+
+//need to delete head and create copy of tile
 *Tile LinkedList::getHead(){
     return head->tile;
 }

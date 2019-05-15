@@ -3,12 +3,13 @@
 
 class Board{
     public:
-    Board(int x_size, int y_size);
+        Board();
 
-    int placeTile(int x, int y, Tile tile);
+        int placeTile(int x, int y, Tile tile);
 
-    std::string toString();
+        std::string toString();
 
-
+    private:
+        Tile* map[26][26];
 
 };

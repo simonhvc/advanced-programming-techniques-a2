@@ -1,7 +1,6 @@
 #include <Board.h>
 
-Board::Board(int x_size, int y_size){
-    Tile grid[5][5];
+Board::Board(){
 }
 
 std::string Board::toString(){

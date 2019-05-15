@@ -1,13 +1,13 @@
 #include <string>
 #include <LinkedList.h>
-#include <Bag.cpp>
+#include <Bag.h>
 
 class Player { 
     
     public:
         Player(std::string name, std::string studentNumber, std::string Email);
-        
-        void Draw(Bag bag, int amount);
+
+        void Draw(Bag* bag, int amount);
 
         void handToString();
 
