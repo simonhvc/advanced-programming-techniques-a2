@@ -7,7 +7,7 @@
 
 class LinkedList {
 public:
-   int length;
+   
    LinkedList();
    ~LinkedList();
    void add(Tile *tile);
@@ -17,6 +17,7 @@ public:
 
 private:
    Node* head;
+   int length;
 };
 
 #endif // ASSIGN2_LINKEDLIST_H
