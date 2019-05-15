@@ -3,10 +3,12 @@
 
 Node::Node(Tile* tile, Node* next)
 {
-   // TODO
+   this -> title = title;
+   this -> next = next;      
 }
 
 Node::Node(Node& other)
 {
-   // TODO
+   other.title -> title;
+   other.next -> next;
 }
