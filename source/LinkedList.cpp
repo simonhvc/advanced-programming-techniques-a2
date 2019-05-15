@@ -16,7 +16,7 @@ LinkedList::~LinkedList() {
     }
 }
 
-void LinkedList::add(Tile tile){
+void LinkedList::add(Tile *tile){
     Node* node = new Node(tile, head);
     this->head = node;
     this->length++;
