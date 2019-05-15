@@ -1,6 +1,6 @@
 
 #include "LinkedList.h"
-
+#include "iostream"
 LinkedList::LinkedList() {
    head = nullptr;
    length = 0;
@@ -17,7 +17,7 @@ LinkedList::~LinkedList() {
 }
 
 void LinkedList::add(Tile tile){
-    Node* node = new Node(tile, next);
+    Node* node = new Node(tile, head);
     this->head = node;
     this->length++;
 }
@@ -33,30 +33,30 @@ void LinkedList::print(){
 }
 
 void LinkedList::deleteNode(Tile tile){
-   if(head->next == NULL)  
+   if(head->next == NULL)  {
   
         /* Copy the data of next node to head */
-        head->data = head->next->data;  
+        head->tile = head->next->tile;  
   
         // store address of next node  
-        n = head->next;  
+        head = head->next;  
   
         // Remove the link of next node  
         head->next = head->next->next;  
   
         // free memory  
-        free(n);  
-  
+        free(head);  
+        length--;
         return;  
         }
    Node *prev = head;  
-    while(prev->next != NULL && prev->next != n)  
+    while(prev->next != NULL && prev->next != head)  
         prev = prev->next;  
   
     // Check if node really exists in Linked List  
     if(prev->next == NULL)  
     {  
-        cout << "\nGiven node is not present in Linked List";  
+        std::cout << "\nGiven node is not present in Linked List";  
         return;  
     }  
   
@@ -64,7 +64,7 @@ void LinkedList::deleteNode(Tile tile){
     prev->next = prev->next->next;  
   
     // Free memory  
-    free(n);  
-  
+    free(head);  
+    length--;
     return;  
 }
