@@ -1,6 +1,6 @@
 #include <string>
-#include <linkedList.cpp>
-#include <bag>
+#include <LinkedList.h>
+#include <Bag.cpp>
 class Player { 
     std::string name, studentNumber, Email;
     int score;
@@ -16,7 +16,7 @@ class Player {
 
     void Draw(Bag bag, int amount){
       for(int i = 0; i < amount; i++){
-        hand->add(bag->getHead());
+        hand->add(bag.getTile());
       }
       
     }
@@ -24,5 +24,6 @@ class Player {
     void handToString(){
        hand->print();
     }
+
   
 }; 

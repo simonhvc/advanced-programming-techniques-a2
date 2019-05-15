@@ -68,3 +68,7 @@ void LinkedList::deleteNode(Tile tile){
     length--;
     return;  
 }
+
+*Tile LinkedList::getHead(){
+    return head->tile;
+}

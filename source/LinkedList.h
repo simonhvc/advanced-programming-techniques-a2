@@ -13,6 +13,7 @@ public:
    void add(Tile *tile);
    void deleteNode(Tile tile);
    void print();
+   Tile* getHead();
 
 private:
    Node* head;
