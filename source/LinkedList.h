@@ -3,13 +3,14 @@
 #define ASSIGN2_LINKEDLIST_H
 
 #include "Node.h"
+#include "Tile.h"
 
 class LinkedList {
 public:
    int length;
    LinkedList();
    ~LinkedList();
-   void add(Tile tile);
+   void add(Tile *tile);
    void deleteNode(Tile tile);
    void print();
 
