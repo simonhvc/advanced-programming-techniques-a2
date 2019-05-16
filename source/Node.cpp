@@ -25,6 +25,6 @@ void Node::setNext(Node* next){
 
 Node::Node(Node& other)
 {
-   tile = other.tile;
-   next = other.next;
+  // other.tile -> tile;
+   //other.next -> next;
 }
