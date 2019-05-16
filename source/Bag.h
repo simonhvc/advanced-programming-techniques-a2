@@ -2,16 +2,11 @@
 #include "LinkedList.h"
 #include "Tile.h"
 
-class Bag { 
+class Bag {
     public:
         Bag();
-
         Tile* getTile();
-
 
     private:
         LinkedList* tiles = new LinkedList();
-
-
-
 };

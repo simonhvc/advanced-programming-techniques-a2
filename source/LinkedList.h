@@ -7,13 +7,14 @@
 
 class LinkedList {
 public:
-   
+
    LinkedList();
    ~LinkedList();
    void addToFront(Tile *tile);
    void addToEnd(Tile *tile);
    void deleteNode(Tile tile);
    void print();
+   Tile* getRandomTile();
    Tile* getHead();
 
 //private:

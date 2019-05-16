@@ -1,9 +1,8 @@
 #include "Bag.h"
-  
+
 Bag::Bag() {
     for(int colours = 0; colours < 6; colours++){
         for(int shapes = 0; shapes < 6; shapes++){
-            shapes++;
             if(colours == 0){
             tiles->addToFront(new Tile('R', shapes));
             }
@@ -21,14 +20,11 @@ Bag::Bag() {
             }
             if(colours == 5){
             tiles->addToFront(new Tile('P', shapes));
-            
             }
-            shapes--;
         }
     }
     //std::random_shuffle(all, 35);
 }
 Tile* Bag::getTile(){
-       return tiles->getHead();
+       return tiles->getRandomTile();
 }
-
