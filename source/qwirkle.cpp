@@ -1,4 +1,5 @@
 
+#include "Menu.h"
 #include "LinkedList.h"
 #include "Player.h"
 #include "Board.h"
@@ -15,5 +16,8 @@ int main(void) {
    Bag* shuffledBag = new Bag();
    players[0]->Draw(shuffledBag);
    players[0]->handToString();
+   Menu* menu = new Menu();
+   menu->printMenu();
+   menu->executeOption(menu->getSelection());
    return EXIT_SUCCESS;
 }
