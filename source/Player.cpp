@@ -7,11 +7,8 @@
       this->Email = Email;
     }
 
-    void Player::Draw(Bag* bag, int amount){
-      for(int i = 0; i < amount; i++){
+    void Player::Draw(Bag* bag){
         hand->addToEnd(bag->getTile());
-      }
-
     }
 
     void Player::handToString(){
