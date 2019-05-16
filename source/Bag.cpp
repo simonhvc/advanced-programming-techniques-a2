@@ -2,7 +2,7 @@
 
 Bag::Bag() {
     for(int colours = 0; colours < 6; colours++){
-        for(int shapes = 0; shapes < 6; shapes++){
+        for(int shapes = 1; shapes < 7; shapes++){
             if(colours == 0){
             tiles->addToFront(new Tile('R', shapes));
             }
