@@ -14,7 +14,7 @@ int main(void) {
    players[0] = new Player("Kyle Condron", "s3717110", "s3717110@student.rmit.edu.au");
    //Board* playingBoard = new Board();
    Bag* shuffledBag = new Bag();
-   players[0]->Draw(shuffledBag, 1);
+   players[0]->Draw(shuffledBag, 2);
    players[0]->handToString();
    return EXIT_SUCCESS;
 }
