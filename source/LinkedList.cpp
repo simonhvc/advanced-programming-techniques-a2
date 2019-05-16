@@ -11,7 +11,7 @@ LinkedList::~LinkedList() {
     Node* cur = NULL;
     while (next != NULL) {
         cur = next;
-        next = next->next;
+        next = next->getNext();
         delete cur;
     }
 }
@@ -39,12 +39,12 @@ void LinkedList::addToEnd(Tile *tile){
         //temp = head;
 
         // Uses temp to find the last node
-        while (temp->next != NULL) {
-            temp = temp->next;
+        while (temp->getNext() != NULL) {
+            temp = temp->getNext();
         }
 
         // Appends the last node with last
-        temp->next = last;
+        temp->setNext(last);
     }
 
 }
@@ -53,23 +53,23 @@ void LinkedList::print(){
     Node* head = this->head;
     int i = 1;
     while(head){
-        std::cout << i << ": " << head->tile << std::endl;
-        head = head->next;
+        std::cout << " " << head->getTile()->getColour() << head->getTile()->getShape() << std::endl;
+        head = head->getNext();
         i++;
     }
 }
 
 void LinkedList::deleteNode(Tile tile){
-   if(head->next == NULL)  {
+   if(head->getNext() == NULL)  {
   
         /* Copy the data of next node to head */
-        head->tile = head->next->tile;  
+        head->setTile(head->getNext()->getTile());  
   
         // store address of next node  
-        head = head->next;  
+        head = head->getNext();  
   
         // Remove the link of next node  
-        head->next = head->next->next;  
+        head->setNext(head->getNext()->getNext());  
   
         // free memory  
         free(head);  
@@ -77,18 +77,18 @@ void LinkedList::deleteNode(Tile tile){
         return;  
         }
    Node *prev = head;  
-    while(prev->next != NULL && prev->next != head)  
-        prev = prev->next;  
+    while(prev->getNext() != NULL && prev->getNext() != head)  
+        prev = prev->getNext();  
   
     // Check if node really exists in Linked List  
-    if(prev->next == NULL)  
+    if(prev->getNext() == NULL)  
     {  
         std::cout << "\nGiven node is not present in Linked List";  
         return;  
     }  
   
     // Remove node from Linked List  
-    prev->next = prev->next->next;  
+    prev->setNext(prev->getNext()->getNext());  
   
     // Free memory  
     free(head);  
@@ -99,5 +99,5 @@ void LinkedList::deleteNode(Tile tile){
 
 //need to delete head and create copy of tile
 Tile* LinkedList::getHead(){
-    return head->tile;
+    return head->getTile();
 }

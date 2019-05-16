@@ -7,6 +7,10 @@ Tile::Tile(Colour colour, Shape shape)
    this -> shape = shape;      
 }
 
-std::string Tile::toString(){
-    return colour + "" + shape;
+Shape Tile::getShape(){
+    return shape;
+}
+
+Colour Tile::getColour(){
+    return colour;
 }
