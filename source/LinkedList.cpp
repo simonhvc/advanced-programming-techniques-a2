@@ -31,8 +31,9 @@ void LinkedList::addToEnd(Tile *tile){
     //last->next = NULL;
 
     // If the linked list is empty then set head = last
-    if (head == NULL) {
+    if (head == nullptr) {
         head = last;
+        return;
     } else {
         // Creates a temp node and sets it to head
         //Node *temp = new Node;
