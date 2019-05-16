@@ -1,8 +1,15 @@
-#include "Board.h"
+#include "Tile.h"
+#include <string>
 
-Board::Board(){
-}
+class Board{
+    public:
+        Board();
 
-std::string Board::toString(){
-    return NULL;
-}
+        int placeTile(int x, int y, Tile tile);
+
+        std::string toString();
+
+    private:
+        Tile* map[26][26];
+
+};
