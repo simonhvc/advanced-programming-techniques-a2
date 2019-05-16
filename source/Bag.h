@@ -1,7 +1,6 @@
 #include <string>
-#include <LinkedList.h>
-#include <Tile.h>
-#include <algorithm>
+#include "LinkedList.h"
+#include "Tile.h"
 
 class Bag { 
     public:

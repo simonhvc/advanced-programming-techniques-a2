@@ -1,4 +1,4 @@
-#include <bag.h>
+#include "Bag.h"
   
 Bag::Bag() {
     for(int colours = 0; colours < 6; colours++){
@@ -26,6 +26,6 @@ Bag::Bag() {
     //std::random_shuffle(all, 35);
 }
 Tile* Bag::getTile(){
-       return tiles->getHead;
+       return tiles->getHead();
 }
 

@@ -14,7 +14,7 @@ public:
    void addToEnd(Tile *tile);
    void deleteNode(Tile tile);
    void print();
-   Tile getHead();
+   Tile* getHead();
 
 //private:
    Node* head;
