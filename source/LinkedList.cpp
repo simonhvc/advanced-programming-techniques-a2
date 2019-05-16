@@ -25,27 +25,29 @@ void LinkedList::addToFront(Tile *tile){
 
 void LinkedList::addToEnd(Tile *tile){
      // Creates a temp to hold the last node and set last's data and next
-    Node* last = new Node(tile, NULL);
+    Node* temp = new Node(tile, NULL);
 
     //last->tile = tile;
     //last->next = NULL;
 
     // If the linked list is empty then set head = last
-    if (head == NULL) {
-        head = last;
+    if (!head) {
+        head = temp;
+        return;
     } else {
         // Creates a temp node and sets it to head
         //Node *temp = new Node;
-        Node* temp = new Node( *head);
+        Node* last = new Node( *head);
         //temp = head;
 
         // Uses temp to find the last node
-        while (temp->getNext() != NULL) {
-            temp = temp->getNext();
+        while (last->getNext() != NULL) {
+            last = last->getNext();
+            last->setNext(temp->getNext());
         }
 
         // Appends the last node with last
-        temp->setNext(last);
+        last->setNext(temp);
     }
 
 }
