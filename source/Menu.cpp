@@ -1,8 +1,15 @@
 #include <iostream>
 #include "Menu.h"
 
+
     Menu::Menu(){
         std::cout << "WELCOME TO QWIRKLE!\n-------------------" << std::endl;
+    }
+
+    void Menu::startMenu(){
+        printMenu();
+        int sel = getSelection();
+        executeOption(sel);
     }
 
     void Menu::printMenu(){
@@ -18,6 +25,7 @@
         bool validSelection = false;
 
         while(!validSelection){
+            promptUser();
             std::cin >> selection;
 
             if (std::cin.fail()){
@@ -30,7 +38,6 @@
             else{
                 validSelection = true;
             }
-
             std::cin.clear();
             std::cin.ignore();
         }
@@ -62,7 +69,14 @@
 
     void Menu::newGame(){
         //todo
-        std::cout << "Executing  New Game" << std::endl;
+        std::cout << "Starting a New Game" << std::endl;
+        std::string player1, player2;
+        std::cout << "Player 1, enter your name (uppercase only): " << std::endl;
+        std::cin >> player1;
+        players[0] = new Player(player1);
+        std::cout << "Player 2, enter your name (uppercase only): " << std::endl;
+        std::cin >> player2;
+        players[1] = new Player(player2);
     }
 
     void Menu::loadGame(){
@@ -71,11 +85,24 @@
     }
 
     void Menu::showStudents(){
-        //todo
-        std::cout << "Executing  Show Students" << std::endl;
+        std::cout << "-------------------\n" << std::endl;
+        for(int i = 0; i < 3; i++){
+            std::cout << "Name: " << this->students[i][0] <<std::endl;
+            std::cout << "Student ID: " << this->students[i][1]<< std::endl;
+            std::cout << "Email: "<< this->students[i][2] << "\n" << std::endl;
+        }
+
+        std::cout << "-------------------\n Press enter to return to Menu..." << std::endl;
+        std::cin.ignore(100, '\n');
+        startMenu();
     }
 
     void Menu::quit(){
-        //todo
-        std::cout << "Executing  Quit" << std::endl;
+        //todo -- memory management atexit()
+        std::cout << "Goodbye!" << std::endl;
+        exit(0);
+    }
+
+    void Menu::promptUser(){
+        std::cout << "> ";
     }

@@ -5,7 +5,7 @@
 class Player { 
     
     public:
-        Player(std::string name, std::string studentNumber, std::string Email);
+        Player(std::string name);
 
         void Draw(Bag* bag);
 

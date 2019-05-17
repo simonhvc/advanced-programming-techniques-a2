@@ -1,10 +1,8 @@
 #include "Player.h"
 
-    Player::Player(std::string name, std::string studentNumber, std::string Email)
+    Player::Player(std::string name)
     {
       this->name = name;
-      this->studentNumber = studentNumber;
-      this->Email = Email;
     }
 
     void Player::Draw(Bag* bag){
