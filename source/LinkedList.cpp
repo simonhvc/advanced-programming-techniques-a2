@@ -37,7 +37,7 @@ void LinkedList::addToEnd(Tile *tile){
     } else {
         // Creates a temp node and sets it to head
         //Node *temp = new Node;
-        Node* temp = new Node( *head);
+        Node* temp = this->head;
         //temp = head;
 
         // Uses temp to find the last node
@@ -48,6 +48,7 @@ void LinkedList::addToEnd(Tile *tile){
         // Appends the last node with last
         temp->setNext(last);
     }
+    length++;
 
 }
 
@@ -64,7 +65,7 @@ void LinkedList::print(){
 //Need to delete tile after returning it
 Tile* LinkedList::getRandomTile() {
     //Sets the random Seed
-    srand(time(NULL));
+    srand(time(NULL) + length);
     //Gets a random integer between 0 and the length of the array
     int randomIndex = 0 + (rand() % static_cast<int>(length - 0 + 1));
     //The index to increment
@@ -79,6 +80,7 @@ Tile* LinkedList::getRandomTile() {
     }
 
     Tile* tile = node->getTile();
+    length--;
     return tile;
 }
 
