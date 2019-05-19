@@ -1,32 +1,42 @@
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <memory>
 #include "Player.h"
 
 class Menu { 
     
     public:
         Menu();
+        ~Menu();
 
         void startMenu();
 
+    private:
         void printMenu();
         
-        int getSelection();
+        int getMenuSelection();
 
         void executeOption(int selection);
         
         void newGame();
 
+        std::string getPlayerName();
+
         void loadGame();
 
         void showStudents();
 
-        void quit();
-        
-        void promptUser();
+        void quitGame();
 
-    private:
+        int getInputInt();
+
+        std::string getInputStr();
+
         int selection = 0;
         Player* players[2];
+
+        /* Team members */
         const std::string students[3][3] = {
             {"Kyle Condron", "s3717110", "s3717110@student.rmit.edu.au"},
             {"Simon Helsinki", "s3694451", "s3694451@student.rmit.edu.au"},
