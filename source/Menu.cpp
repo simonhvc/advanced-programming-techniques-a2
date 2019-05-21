@@ -29,7 +29,7 @@ void Menu::printMenu(){
 
 //-------- Initial Menu Selection ---------//
 int Menu::getMenuSelection(){
-    std::string selectionString;
+    std::string selectionString = "";
     int selectionInt = 0;
     bool validSelection = false;
 
@@ -96,7 +96,7 @@ void Menu::newGame(){
 
 std::string Menu::getPlayerName(){
     bool validName = false;
-    std::string name;
+    std::string name = "";
 
     while(!validName){         // Loops until a valid choice is made
         name = getInputStr();
@@ -106,7 +106,7 @@ std::string Menu::getPlayerName(){
         }
 
         for (unsigned int i = 0; i < name.length(); i++) {
-            if ((std::isalpha(static_cast<unsigned char>(name[i])) && std::isupper(static_cast<unsigned char>(name[i])))){
+            if (std::isalpha(static_cast<unsigned char>(name[i])) && std::isupper(static_cast<unsigned char>(name[i]))){
                 validName = true;
             }
 
@@ -127,15 +127,77 @@ std::string Menu::getPlayerName(){
 
 //-------- Load Game ---------//
 void Menu::loadGame(){
+    bool validFormat = true;
     std::cout << "Please enter the path to the Save Game file" << std::endl;
     std::ifstream savedGame;
     std::string saveLocation = getInputStr();
     savedGame.open(saveLocation);
+
     if (savedGame.fail()) {
-        std::cout << "Error -- File does not exist or is inaccessible" << std::endl;
+        std::cerr << "Error -- File does not exist or is inaccessible" << std::endl;
+    }
+    savedGame.clear();
+
+
+    std::string playerNames[] = {"",""};
+    int playerScores[] = {0,0};
+    std::vector<std::vector<std::string>> playerHands;
+
+    for (int i = 0; i < 2; i++){
+        std::string playerName = "";
+        std::getline(savedGame, playerName, '\n');
+        playerName = deleteReturnChar(playerName);
+        for (unsigned int i = 0; i < playerName.length(); i++) {
+            if (!std::isalpha(static_cast<unsigned char>(playerName[i])) || !std::isupper(static_cast<unsigned char>(playerName[i]))){
+                validFormat = false;
+            }
+        }
+
+        std::string playerScore = "";
+        std::getline(savedGame, playerScore);
+        playerScore = deleteReturnChar(playerScore);
+        for (unsigned int i = 0; i < playerScore.length(); i++) {
+            if (!std::isdigit(playerScore[i])){
+                validFormat = false;
+            }
+        }
+
+        std::string playerHandLine = "";
+        std::getline(savedGame, playerHandLine, '\n');
+        playerHandLine = deleteReturnChar(playerHandLine);
+        std::stringstream handStream(playerHandLine);
+        std::string tile = "";
+        std::vector<std::string> tileVector;
+        while(getline(handStream, tile,','))
+        {
+            if (!(tile.length() == 2) || !(tile[0] == 'R' || tile[0] == 'O' || tile[0] == 'Y' || tile[0] == 'G' || tile[0] == 'B' || tile[0] == 'P') || !(tile[1] == '1' || tile[1] == '2' || tile[1] == '3' || tile[1] == '4' || tile[1] == '5' || tile[1] == '6')){
+                validFormat = false;
+            }
+            else{
+                tileVector.push_back(tile);
+            }
+        }
+
+        if(validFormat){
+            playerNames[i] = playerName;
+            playerScores[i] = std::stoi(playerScore);
+            playerHands.push_back(tileVector);
+        }
     }
 
-
+    if (validFormat && savedGame.good()){
+        //validation success, set all the variable and start the game
+        //for now I am just outputting them
+        for (int i = 0; i < 2; i++){
+            std::cout << playerNames[i] << std::endl;
+            std::cout << playerScores[i] << std::endl;
+            for (unsigned int j = 0; j < playerHands[i].size(); j++){
+                std::cout << playerHands[i][j] << std::endl;
+            }
+        }
+    }
+    savedGame.clear();
+    savedGame.close();
 }
 
 
@@ -164,7 +226,7 @@ void Menu::quitGame(){
 std::string Menu::getInputStr(){
     std::cout << "> ";      //User Input Prompt
 
-    std::string inputVar;
+    std::string inputVar = "";
     
     std::cin >> inputVar;
 
@@ -172,4 +234,16 @@ std::string Menu::getInputStr(){
         quitGame();         //quit if EoF is entered
     }
     return inputVar;
+}
+
+std::string Menu::deleteReturnChar(std::string string){
+
+   std::string returnString = "";
+
+   for(unsigned int i=0; i<string.length(); i++){
+      if(string[i] != '\r'){
+         returnString += string[i];
+      }
+   }
+   return returnString;
 }

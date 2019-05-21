@@ -1,5 +1,7 @@
 #include <string>
+#include <vector>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <memory>
 #include "Player.h"
@@ -32,6 +34,8 @@ class Menu {
         int getInputInt();
 
         std::string getInputStr();
+
+        std::string deleteReturnChar(std::string string);
 
         int selection = 0;
         Player* players[2];
