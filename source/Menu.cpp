@@ -25,6 +25,9 @@ void Menu::printMenu(){
     std::cout << "2. Load Game" << std::endl;
     std::cout << "3. Show Student Information" << std::endl;
     std::cout << "4. Quit" << std::endl;
+    Bag* tiles = new Bag();
+    std::cout << tiles->getTile()->toString();
+    std::cout << "aa";
 }
 
 //-------- Initial Menu Selection ---------//

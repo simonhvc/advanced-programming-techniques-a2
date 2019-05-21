@@ -113,7 +113,7 @@ std::string Board::toString(){
                     text += " |";
             }
             else{
-                text += map[y][x]->getColour() + map[y][x]->getShape() + "|";
+                text += map[y][x]->toString() + "|";
             }
         }
     }

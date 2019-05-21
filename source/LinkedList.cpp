@@ -56,7 +56,7 @@ void LinkedList::print(){
     Node* head = this->head;
     int i = 1;
     while(head){
-        std::cout << " " << head->getTile()->getColour() << head->getTile()->getShape() << std::endl;
+        std::cout << " " << head->getTile()->toString() << std::endl;
         head = head->getNext();
         i++;
     }
