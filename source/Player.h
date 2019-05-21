@@ -11,6 +11,8 @@ class Player {
 
         void handToString();
 
+        void updateScore(int score);
+
     private:
         std::string name, studentNumber, Email;
         int score;

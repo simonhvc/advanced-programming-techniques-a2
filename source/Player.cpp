@@ -12,3 +12,7 @@
     void Player::handToString(){
        hand->print();
     }
+
+    void Player::updateScore(int score){
+      this->score += score;
+    }
