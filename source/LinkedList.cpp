@@ -68,55 +68,64 @@ Tile* LinkedList::getRandomTile() {
     srand(time(NULL) + length);
     //Gets a random integer between 0 and the length of the array
     int randomIndex = 0 + (rand() % static_cast<int>(length - 0 + 1));
-    //The index to increment
-    int i = 0;
 
     //Gets the header
     Node* node = this->head;
 
-    while (i < randomIndex) {
-      node = node->getNext();
-      i++;
+    for(int i = 0; i < randomIndex - 1; i++) {
+      if (node->getNext() != NULL) {
+        node = node->getNext();
+      }
+
     }
 
-    Tile* tile = node->getTile();
-    length--;
+    Tile* tile = new Tile(*node->getTile());
+    deleteNode(*node->getTile());
+
     return tile;
 }
 
 void LinkedList::deleteNode(Tile tile){
-   if(head->getNext() == NULL)  {
 
-        /* Copy the data of next node to head */
-        head->setTile(head->getNext()->getTile());
+    //Gets the start of the list
+    Node* node = this->head;
+    bool hasFoundTile = false;
+    int index = 0;
 
-        // store address of next node
-        head = head->getNext();
-
-        // Remove the link of next node
-        head->setNext(head->getNext()->getNext());
-
-        // free memory
-        free(head);
-        length--;
-        return;
-        }
-   Node *prev = head;
-    while(prev->getNext() != NULL && prev->getNext() != head)
-        prev = prev->getNext();
-
-    // Check if node really exists in Linked List
-    if(prev->getNext() == NULL)
-    {
-        std::cout << "\nGiven node is not present in Linked List";
-        return;
+    //Checks the first node
+    if (node->getTile()->getColour() == tile.getColour() && node->getTile()->getShape() == tile.getShape()) {
+      this->head = node->getNext();
+      free(node);
+      hasFoundTile = true;
     }
 
-    // Remove node from Linked List
-    prev->setNext(prev->getNext()->getNext());
+    //Loops while node has next
+    while(node->getNext() != NULL && !hasFoundTile) {
+      //Gets the tile
+      Node* prevNode = node;
+      Node* currNode = node->getNext();
+      Node* nextNode = node->getNext()->getNext();
 
-    // Free memory
-    free(head);
+      //Checks if tile is equal to parameter
+      if (currNode->getTile()->getColour() == tile.getColour() && currNode->getTile()->getShape() == tile.getShape()) {
+
+        if (nextNode != NULL) {
+          prevNode->setNext(nextNode);
+          free(currNode);
+        }
+        else {
+          prevNode->setNext(NULL);
+          free(currNode);
+
+        }
+
+        hasFoundTile = true;
+      }
+
+      index++;
+      node = node->getNext();
+    }
+
     length--;
     return;
 }
