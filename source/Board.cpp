@@ -6,77 +6,94 @@ Board::Board(int y_size, int x_size){
 }
 
 int Board::placeTile(int x, int y, Tile* tile){
-    int highestScore = 0;
     if (map[y][x] == NULL){
-         map[y][x] = tile;
-        for(int y_change = -1; y_change < 2; y_change += 2){
-            if(colourScore(y_change, 0, tile->getColour(), 0, x, y) > highestScore){
-                highestScore = colourScore(y_change, 0, tile->getColour(), 0, x, y);
-            }
-            if(shapeScore(y_change, 0, tile->getShape(), 0, x, y) > highestScore){
-                highestScore = shapeScore(y_change, 0, tile->getShape(), 0, x, y);
-            }
-        }
-        for(int x_change = -1; x_change < 2; x_change += 2){
-            if(colourScore(0, x_change, tile->getColour(), 0, x, y) > highestScore){
-                highestScore = colourScore(0, x_change, tile->getColour(), 0, x , y);
-            }
-        
-            if(shapeScore(0, x_change, tile->getShape(), 0, x , y) > highestScore){
-                highestScore = shapeScore(0, x_change, tile->getShape(), 0, x , y);
-            }
-        }    
+         int score = isValid(y, x, tile, true, 0, 0, 0, 0);
+         if (score > 0){
+             map[y][x] = tile;
+         }
+        return score;
     }
-    return highestScore;
+    return 0;
 }
 
-int Board::colourScore(int y_change, int x_change, Colour colour, int score, int x, int y){
-    if(map[y + y_change][x + x_change] != NULL){
-        if(map[y + y_change][x + x_change]->getColour() == colour ){
-            score++;
-            if(x_change > 0){
-                x_change++;
-                colourScore(0, x_change, colour, score, x , y);
+int Board::isValid(int y, int x, Tile* tile, bool result, int size, int score, int y_change, int x_change){
+    for(int y_change = -1; y_change < 2; y_change += 2){
+            if(map[y + y_change][x]->getColour() == tile->getColour()){
+                if(y_change > 0){
+                    y_change++;
+                    score++;
+                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                }
+                if(y_change < 0){
+                    y_change--;
+                    score++;
+                  score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                }
+                
             }
-            if(x_change < 0){
-                x_change--;
-               colourScore(0, x_change, colour, score, x , y);
+                else if(nullCheck(y + y_change, x)){
+                    result = false;
+                }
+             if(map[y + y_change][x]->getShape() == tile->getShape()){
+                if(y_change > 0){
+                    y_change++;
+                    score++;
+                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                }
+                if(y_change < 0){
+                    y_change--;
+                    score++;
+                  score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                }
             }
-            if(y_change > 0){
-                y_change++;
-                colourScore(y_change, 0, colour, score, x , y);
-            }
-            if(y_change < 0){
-                y_change--;
-                colourScore(y_change, 0, colour, score, x , y);
-            }
+                else if(nullCheck(y + y_change, x)){
+                    result = false;
+                }
         }
-    }
+        for(int x_change = -1; x_change < 2; x_change += 2){
+            if(map[y][x + x_change]->getColour() == tile->getColour()){
+                if(x_change > 0){
+                    x_change++;
+                    score++;
+                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                }
+                if(x_change < 0){
+                    x_change--;
+                    score++;
+                  score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                }
+                
+            }
+                else if(nullCheck(y, x + x_change)){
+                    result = false;
+                }
+             if(map[y][x + x_change]->getShape() == tile->getShape()){
+                if(x_change > 0){
+                    x_change++;
+                    score++;
+                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                }
+                if(x_change < 0){
+                    x_change--;
+                    score++;
+                  score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                }
+            }
+            else if(nullCheck(y, x + x_change)){
+                    result = false;
+                }
+        }
+        if (result == false){
+            score = 0;
+        }
     return score;
 }
-int Board::shapeScore(int y_change, int x_change, Shape shape, int score, int x, int y){
-    if(map[y + y_change][x + x_change] != NULL){
-        if(map[y + y_change][x + x_change]->getShape() == shape ){
-            score++;
-            if(x_change > 0){
-                x_change++;
-                shapeScore(0, x_change, shape, score, x , y);
-            }
-            if(x_change < 0){
-                x_change--;
-               shapeScore(0, x_change, shape, score, x , y);
-            }
-            if(y_change > 0){
-                y_change++;
-                shapeScore(y_change, 0, shape, score, x , y);
-            }
-            if(y_change < 0){
-                y_change--;
-                shapeScore(y_change, 0, shape, score, x , y);
-            }
-        }
+
+bool Board::nullCheck(int y, int x){
+    if(map[y][x] == NULL){
+        return false;
     }
-    return score;
+    return true;
 }
 
 int Board::getX(){
