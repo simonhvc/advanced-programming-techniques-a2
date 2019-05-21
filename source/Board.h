@@ -5,7 +5,11 @@ class Board{
     public:
         Board();
 
-       // int placeTile(int x, int y, Tile tile);
+        int placeTile(int x, int y, Tile* tile);
+
+        int colourScore(int y_change, int x_change, Colour colour, int score, int x, int y);
+
+        int shapeScore(int y_change, int x_change, Shape shape, int score, int x, int y);
 
         std::string toString();
 
