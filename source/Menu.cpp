@@ -1,9 +1,11 @@
 #include "Menu.h"
+#include "Board.h"
+#include <string>
 
 
 Menu::Menu(){
     std::cout << "WELCOME TO QWIRKLE!\n-------------------" << std::endl;
-    std::cout << "Enter 'help' at any time for a list of commands\n-------------------" << std::endl;  
+    std::cout << "Enter 'help' at any time for a list of commands\n-------------------" << std::endl;
 }
 
 Menu::~Menu(){
@@ -25,9 +27,6 @@ void Menu::printMenu(){
     std::cout << "2. Load Game" << std::endl;
     std::cout << "3. Show Student Information" << std::endl;
     std::cout << "4. Quit" << std::endl;
-    Bag* tiles = new Bag();
-    std::cout << tiles->getTile()->toString();
-    std::cout << "aa";
 }
 
 //-------- Initial Menu Selection ---------//
@@ -45,10 +44,10 @@ int Menu::getMenuSelection(){
 
         if((selectionString == "help") || (selectionString == "HELP")){
             std::cout << "Select a menu option from 1-4 and press Enter." << std::endl;
-        } 
+        }
 
         else try{
-            selectionInt = std::stoi(selectionString); 
+            selectionInt = std::stoi(selectionString);
             if (selectionInt < 1 || selectionInt > 4) {
                     std::cerr << "Error -- Please enter a valid menu item." << std::endl;
             }
@@ -95,6 +94,38 @@ void Menu::newGame(){
     players[1] = new Player(getPlayerName());
     std::cout << "\nLet's Play!" << std::endl;
     //ToDo GAMEPLAY starts here
+    gameplayLoop();
+}
+
+void Menu::gameplayLoop() {
+  bool loop = true;
+
+  Bag* bag = new Bag();
+  Board* board = new Board(6,6);  
+  players[0]->Draw(bag, 5);
+  players[1]->Draw(bag, 5);
+
+  while(loop) {
+    for(int i = 0; i < 2; i++) {
+      std::cout << players[i]->getName() << "'s turn" << '\n';
+      std::cout << "Hand:" << '\n';
+      players[i]->handToString();
+      std::cout << board->toString() << '\n';
+
+      std::string response = getInputStr();
+
+      if (response == "place") {
+        std::cout << "place" << '\n';
+        std::string response = getInputStr();
+
+        if(players[i]->hasTile(response.at(0), response.at(1))) {
+          std::cout << "YES" << '\n';
+          return;
+
+        }
+      }
+    }
+  }
 }
 
 std::string Menu::getPlayerName(){
@@ -115,7 +146,7 @@ std::string Menu::getPlayerName(){
 
             else{
                 validName = false;
-            }  
+            }
         }
 
         if(!validName){
@@ -230,7 +261,7 @@ std::string Menu::getInputStr(){
     std::cout << "> ";      //User Input Prompt
 
     std::string inputVar = "";
-    
+
     std::cin >> inputVar;
 
     if (std::cin.eof()){

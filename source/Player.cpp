@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <iostream>
 
     Player::Player(std::string name)
     {
@@ -11,8 +12,19 @@
       }
     }
 
+    std::string Player::getName() {
+      return name;
+    }
+
     void Player::handToString(){
        hand->print();
+    }
+
+    bool Player::hasTile(char color, int shape) {
+      std::cout << "im here" << '\n';
+      bool hasTile = hand->hasTile(color, shape);
+      std::cout << "now im here" << '\n';
+      return hasTile;
     }
 
     void Player::updateScore(int score){

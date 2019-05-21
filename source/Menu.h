@@ -6,8 +6,8 @@
 #include <memory>
 #include "Player.h"
 
-class Menu { 
-    
+class Menu {
+
     public:
         Menu();
         ~Menu();
@@ -16,11 +16,11 @@ class Menu {
 
     private:
         void printMenu();
-        
+
         int getMenuSelection();
 
         void executeOption(int selection);
-        
+
         void newGame();
 
         std::string getPlayerName();
@@ -28,6 +28,8 @@ class Menu {
         void loadGame();
 
         void showStudents();
+
+        void gameplayLoop();
 
         void quitGame();
 

@@ -14,6 +14,7 @@ public:
    void addToEnd(Tile *tile);
    void deleteNode(Tile tile);
    void print();
+   bool hasTile(char color, char shape);
    Tile* getRandomTile();
    Tile* getHead();
 

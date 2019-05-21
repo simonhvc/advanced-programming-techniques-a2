@@ -2,14 +2,17 @@
 #include "LinkedList.h"
 #include "Bag.h"
 
-class Player { 
-    
+class Player {
+
     public:
         Player(std::string name);
 
         void Draw(Bag* bag, int tiles);
 
         void handToString();
+
+        std::string getName();
+        bool hasTile(char color, int shape);
 
         void updateScore(int score);
 

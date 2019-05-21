@@ -25,8 +25,13 @@ Bag::Bag() {
             }
         }
     }
-    
     //std::random_shuffle(all, 35);
+}
+LinkedList* Bag::getLinkedList() {
+  return tiles;
+}
+bool Bag::hasTile(char color, char shape) {
+  return tiles->hasTile(color, shape);
 }
 Tile* Bag::getTile(){
        return tiles->getRandomTile();
