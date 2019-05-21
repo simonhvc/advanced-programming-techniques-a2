@@ -3,7 +3,7 @@
 
 class Board{
     public:
-        Board();
+        Board(int y_size, int x_size);
 
         int placeTile(int x, int y, Tile* tile);
 
@@ -15,5 +15,7 @@ class Board{
 
     private:
         Tile* map[26][26];
+        int x_size;
+        int y_size;
 
 };

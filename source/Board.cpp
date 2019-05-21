@@ -1,6 +1,8 @@
 #include "Board.h"
 
-Board::Board(){
+Board::Board(int y_size, int x_size){
+      this->y_size = y_size;
+      this->x_size = x_size;
 }
 
 int Board::placeTile(int x, int y, Tile* tile){
@@ -78,29 +80,32 @@ int Board::shapeScore(int y_change, int x_change, Shape shape, int score, int x,
 }
 
 std::string Board::toString(){
-    std::string text = "  0  1  2  3  4  5  \n--------------------\nA |";
-    for(int y = 0; y<6;y++){
-        for(int x = 0; x<6;x++){
-            if(x == 0 && y == 1){
-                text += "\nB |";
+    std::string text = " ";
+    std::string letters[26] = {"A", "B", "C", "D", "E", "F", "G",
+                                "H", "I", "J", "K", "L", "M", "N",
+                                "O", "P", "Q", "R", "S", "T", "U",
+                                "V", "W", "X", "Y", "Z"};
+    std::string numbers[26] = {"1", "2", "3", "4", "5", "6", "7",
+                                "8", "9", "10", "11", "12", "13", "14",
+                                "15", "16", "17", "18", "19", "20", "21",
+                                "22", "23", "24", "25", "26"};
+
+    for(int top = 0; top < x_size;top++){
+        text += " " + numbers[top]; 
+    }
+
+    //text+= " \n--------------------\n";
+
+    for(int y = 0; y < y_size;y++){
+        for(int x = 0; x < x_size;x++){
+            if(x == 0 ){
+                text += "\n" + letters[y] + " |";
             }
-            if(x == 0 && y == 2){
-                text += "\nC |";
-            }
-            if(x == 0 && y == 3){
-                text += "\nD |";
-            }
-            if(x == 0 && y == 4){
-                text += "\nE |";
-            }
-            if(x == 0 && y == 5){
-                text += "\nF |";
-            }
-            if(map[0][x] == NULL){
-                text += " |";
+            if(map[y][x] == NULL){
+                    text += " |";
             }
             else{
-                text += map[0][x]->getColour() + map[0][x]->getShape() + "|";
+                text += map[y][x]->getColour() + map[y][x]->getShape() + "|";
             }
         }
     }
