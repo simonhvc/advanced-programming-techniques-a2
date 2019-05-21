@@ -11,6 +11,10 @@ class Board{
 
         int shapeScore(int y_change, int x_change, Shape shape, int score, int x, int y);
 
+        int getY();
+
+        int getX();
+
         std::string toString();
 
     private:

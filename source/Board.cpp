@@ -79,6 +79,14 @@ int Board::shapeScore(int y_change, int x_change, Shape shape, int score, int x,
     return score;
 }
 
+int Board::getX(){
+    return x_size;
+}
+
+int Board::getY(){
+    return y_size;
+}
+
 std::string Board::toString(){
     std::string text = " ";
     std::string letters[26] = {"A", "B", "C", "D", "E", "F", "G",
