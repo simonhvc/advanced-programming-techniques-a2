@@ -88,10 +88,18 @@ void Menu::executeOption(int selection){
 //-------- New Game Initialization ---------//
 void Menu::newGame(){
     std::cout << "Starting a New Game" << std::endl;
-    std::cout << "Player 1, enter your name (uppercase characters only): " << std::endl;
-    players[0] = new Player(getPlayerName());
-    std::cout << "Player 2, enter your name (uppercase characters only): " << std::endl;
-    players[1] = new Player(getPlayerName());
+
+    std::cout << "Enter Player Amount" << '\n';
+    numPlayers = std::stoi(getInputStr());
+
+    std::cout << "Enter Board Size" << '\n';
+    boardSize = std::stoi(getInputStr());
+
+    for(int i = 0; i < numPlayers; i++) {
+      std::cout << "Player " << i + 1 << ", enter your name (uppercase characters only): " << std::endl;
+      players[i] = new Player(getPlayerName());
+    }
+
     std::cout << "\nLet's Play!" << std::endl;
     gameplayLoop();
 }
@@ -100,7 +108,7 @@ void Menu::gameplayLoop() {
   bool loop = true;
 
   Bag* bag = new Bag();
-  Board* board = new Board(6,6);
+  Board* board = new Board(boardSize,boardSize);
   board->firstTile(bag->getTile());
   players[0]->Draw(bag, 5);
   players[1]->Draw(bag, 5);
@@ -113,8 +121,9 @@ void Menu::gameplayLoop() {
 
       while (response != "place") {
         std::cout << players[i]->getName() << "'s turn" << '\n';
-        std::cout << "SCORE: " << players[i]->getScore() << '\n';
-        std::cout << "Hand: " << players[i]->handToString() << '\n';
+        std::cout << "Score for " << players[i]->getName() << ": " << players[i]->getScore() << '\n';
+        std::cout << "Your hand is:" << '\n';
+        std::cout << players[i]->handToString() << '\n';
         std::cout << board->toString() << '\n';
 
         response = getInputStr();

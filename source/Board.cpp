@@ -13,7 +13,7 @@ int Board::placeTile(int x, int y, Tile* tile){
          if(result != -1){
           std::cout << "2" << '\n';
              score += result; //UP
-           
+
          }
          result = isValid(y, x, tile, 1, 0);
          if(result != -1){
@@ -50,10 +50,10 @@ int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
    if(nullCheck(y + y_change, x + x_change) == true){
        std::cout << "Null" << '\n';
         return 0;
-         
+
    }
     std::cout << "6" << '\n';
-    
+
     std::cout << y + y_change << '\n';
     std::cout << x + x_change << '\n';
    if(y + y_change > y_size || x + x_change > x_size || y + y_change < 0 || x + x_change < 0){
@@ -152,7 +152,7 @@ void Board::firstTile(Tile* tile){
 }
 
 std::string Board::toString(){
-    std::string text = " ";
+    std::string text = "  ";
 
     std::string numbers[26] = {"1", "2", "3", "4", "5", "6", "7",
                                 "8", "9", "10", "11", "12", "13", "14",
@@ -160,7 +160,7 @@ std::string Board::toString(){
                                 "22", "23", "24", "25", "26"};
 
     for(int top = 0; top < x_size;top++){
-        text += " " + numbers[top];
+        text += "  " + numbers[top];
     }
 
     //text+= " \n--------------------\n";
@@ -171,7 +171,7 @@ std::string Board::toString(){
                 text += "\n" + letters[y] + " |";
             }
             if(map[y][x] == NULL){
-                    text += " |";
+                    text += "  |";
             }
             else{
                 text += map[y][x]->toString() + "|";

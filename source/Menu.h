@@ -40,6 +40,8 @@ class Menu {
         std::string deleteReturnChar(std::string string);
 
         int selection = 0;
+        int numPlayers = 2;
+        int boardSize = 6;
         Player* players[2];
 
         /* Team members */
