@@ -100,20 +100,16 @@ void Menu::newGame(){
     std::cout << "\nLet's Play!" << std::endl;
     gameplayLoop();
 }
-//THE MAIN GAMEPLAY LOOP//
+
 void Menu::gameplayLoop() {
   bool loop = true;
 
   //Initalizes the bag and board
   Bag* bag = new Bag();
   Board* board = new Board(boardSize,boardSize);
-  //Places the first tile
   board->firstTile(bag->getTile());
-
-  //Players draw the first tile
-  for(int i = 0; i < numPlayers; i++) {
-    players[i]->Draw(bag, 5);
-  }
+  players[0]->Draw(bag, 5);
+  players[1]->Draw(bag, 5);
 
 
   //The gameplay loop
@@ -121,20 +117,17 @@ void Menu::gameplayLoop() {
 
     std::string response = "";
 
-    for(int i = 0; i < numPlayers; i++) {
-      bool hasPlacedTile = false;
-      Tile* tileToPlace = nullptr;
-      int yPos;
-      int xPos;
-      int score = 0;
+    for(int i = 0; i < 2; i++) {
 
 
       //Gets the player command
       while (response != "place" && response != "replace") {
         std::cout << players[i]->getName() << "'s turn" << '\n';
-        std::cout << "SCORE: " << players[i]->getScore() << '\n';
-        std::cout << "Hand: " << players[i]->handToString() << '\n';
+        std::cout << "Score for " << players[i]->getName() << ": " << players[i]->getScore() << '\n';
+        std::cout << "Your hand is:" << '\n';
+        std::cout << players[i]->handToString() << '\n';
         std::cout << board->toString() << '\n';
+
         response = getInputStr();
         std::cout << response << '\n';
       }

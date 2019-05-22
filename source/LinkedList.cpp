@@ -81,7 +81,7 @@ Tile* LinkedList::getRandomTile() {
     }
 
     Tile* tile = new Tile(*node->getTile());
-    deleteNode(node->getTile()->getColour(), node->getTile()->getShape());
+    deleteNode(*node->getTile());
 
     return tile;
 }
@@ -98,11 +98,12 @@ Tile* LinkedList::hasTile(char color, int shape) {
     }
     node = node->getNext();
   }
+
   return returnTile;
+
 }
 
-
-void LinkedList::deleteNode(char color, int shape){
+void LinkedList::deleteNode(Tile tile){
 
     //Gets the start of the list
     Node* node = this->head;
@@ -110,7 +111,7 @@ void LinkedList::deleteNode(char color, int shape){
     int index = 0;
 
     //Checks the first node
-    if (node->getTile()->getColour() == color && node->getTile()->getShape() == shape) {
+    if (node->getTile()->getColour() == tile.getColour() && node->getTile()->getShape() == tile.getShape()) {
       this->head = node->getNext();
       free(node);
       hasFoundTile = true;
@@ -124,7 +125,7 @@ void LinkedList::deleteNode(char color, int shape){
       Node* nextNode = node->getNext()->getNext();
 
       //Checks if tile is equal to parameter
-      if (currNode->getTile()->getColour() == color && currNode->getTile()->getShape() == shape) {
+      if (currNode->getTile()->getColour() == tile.getColour() && currNode->getTile()->getShape() == tile.getShape()) {
 
         if (nextNode != NULL) {
           prevNode->setNext(nextNode);
@@ -133,10 +134,10 @@ void LinkedList::deleteNode(char color, int shape){
         else {
           prevNode->setNext(NULL);
           free(currNode);
-        }
-        hasFoundTile = true;
 
-        std::cout << "FOUND!" << '\n';
+        }
+
+        hasFoundTile = true;
       }
 
       index++;

@@ -16,7 +16,9 @@ class Board{
 
         //A recursive algorithm which keeps calling itself untill there is no more tiles in a given direction or the total length is greater then 6
         //This then returns the score based off of the length
-        int straightLine(int y_start, int x_start, int x_change, int y_change, int length, int score);
+        int straightShapeLine(int y_start, int x_start, int x_change, int y_change, int length, int score, Shape shape);
+
+        int straightColourLine(int y_start, int x_start, int x_change, int y_change, int length, int score, Colour colour);
 
         int getIndexOfChar(char ch);
 
