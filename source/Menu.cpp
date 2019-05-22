@@ -1,6 +1,5 @@
 #include "Menu.h"
-#include "Board.h"
-#include <string>
+
 
 
 Menu::Menu(){
@@ -115,19 +114,25 @@ void Menu::newGame(){
     }
 
     std::cout << "\nLet's Play!" << std::endl;
+
+    //Initalizes the bag and board
+    this->bag = new Bag();
+    this->board = new Board(boardSize,boardSize);
+    this->bag->fillBag();
+
+    //Places the first tile
+    board->firstTile(bag->getTile());
+
+    //Players draw the first tile
+    for(int i = 0; i < numPlayers; i++) {
+        players[i]->Draw(bag, 5);
+    }
+
     gameplayLoop();
 }
 
 void Menu::gameplayLoop() {
   bool loop = true;
-  //Initalizes the bag and board
-  Bag* bag = new Bag();
-  Board* board = new Board(boardSize,boardSize);
-  board->firstTile(bag->getTile());
-  players[0]->Draw(bag, 5);
-  players[1]->Draw(bag, 5);
-
-
   //The gameplay loop
   while(loop) {
 
@@ -270,6 +275,7 @@ void Menu::loadGame(){
     std::vector<std::vector<std::string>> playerHands;
 
     for (int i = 0; i < 2; i++){
+        /* Loading Names */
         std::string playerName = "";
         std::getline(savedGame, playerName, '\n');
         playerName = deleteReturnChar(playerName);
@@ -278,7 +284,7 @@ void Menu::loadGame(){
                 validFormat = false;
             }
         }
-
+        /* Loading Scores */
         std::string playerScore = "";
         std::getline(savedGame, playerScore);
         playerScore = deleteReturnChar(playerScore);
@@ -287,7 +293,7 @@ void Menu::loadGame(){
                 validFormat = false;
             }
         }
-
+        /* Loading Hands */
         std::string playerHandLine = "";
         std::getline(savedGame, playerHandLine, '\n');
         playerHandLine = deleteReturnChar(playerHandLine);
@@ -311,6 +317,34 @@ void Menu::loadGame(){
         }
     }
 
+        /* Loading Board */
+
+        /* Loading Bag */
+        std::string bagLine = "";
+        std::getline(savedGame, bagLine, '\n');
+        bagLine = deleteReturnChar(bagLine);
+        std::stringstream bagStream(bagLine);
+        std::string tile = "";
+        char color = 0;
+        int shape = 0;
+        std::vector<Tile*> bagVector;
+        while(getline(bagStream, tile,','))
+        {
+            if (!(tile.length() == 2) || !(tile[0] == 'R' || tile[0] == 'O' || tile[0] == 'Y' || tile[0] == 'G' || tile[0] == 'B' || tile[0] == 'P') || !(tile[1] == '1' || tile[1] == '2' || tile[1] == '3' || tile[1] == '4' || tile[1] == '5' || tile[1] == '6')){
+                validFormat = false;
+            }
+            else{
+                color = tile.at(0);
+                shape = tile.at(1) - '0';
+                bagVector.push_back(new Tile(color, shape));
+            }
+        }
+
+        /* Loading Current Player */
+        std::string currentPlayer = "";
+        std::getline(savedGame, currentPlayer, '\n');
+        currentPlayer = deleteReturnChar(currentPlayer);
+
     if (validFormat && savedGame.good()){
         //validation success, set all the variable and start the game
         //for now I am just outputting them
@@ -321,6 +355,26 @@ void Menu::loadGame(){
                 std::cout << playerHands[i][j] << std::endl;
             }
         }
+
+        /* Set the Current Player */
+        std::string temp = "";
+        for (int i = 0; i < 2; i++){
+            if (this->players[i]->getName() == currentPlayer){
+                temp = this->players[0]->getName();
+                this->players[i]->setName(temp);
+                this->players[0]->setName(currentPlayer);
+            }
+        }
+
+        //Board* board = new Board(boardSize,boardSize);
+
+        this->bag = new Bag();
+        //this->bag->fillBag();
+        for (unsigned int i = 0; i < bagVector.size(); i++){
+            this->bag->addToBag(bagVector[i]);
+        }
+        //Board* board = new Board(boardSize,boardSize);
+        //Loop to populate board
     }
     savedGame.clear();
     savedGame.close();
