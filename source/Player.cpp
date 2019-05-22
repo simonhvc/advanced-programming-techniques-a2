@@ -20,6 +20,10 @@
        return hand->print();
     }
 
+    void Player::deleteTile(char color, int shape) {
+      hand->deleteNode(color, shape);
+    }
+
     Tile* Player::hasTile(char color, int shape) {
       Tile* tile = hand->hasTile(color, shape);
       return tile;

@@ -103,7 +103,6 @@ void Menu::newGame(){
 
 void Menu::gameplayLoop() {
   bool loop = true;
-
   //Initalizes the bag and board
   Bag* bag = new Bag();
   Board* board = new Board(boardSize,boardSize);
@@ -116,6 +115,11 @@ void Menu::gameplayLoop() {
   while(loop) {
 
     std::string response = "";
+    bool hasPlacedTile = false;
+    Tile* tileToPlace = nullptr;
+    int yPos = 0;
+    int xPos = 0;
+    int score = 0;
 
     for(int i = 0; i < 2; i++) {
 
