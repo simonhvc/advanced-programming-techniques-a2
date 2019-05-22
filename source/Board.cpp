@@ -13,9 +13,10 @@ int Board::placeTile(int x, int y, Tile* tile){
          if(result != -1){
           std::cout << "2" << '\n';
              score += result; //UP
-
+           
          }
          result = isValid(y, x, tile, 1, 0);
+          std::cout << result << '\n';
          if(result != -1){
            std::cout << "3" << '\n';
              score += result; //DOWN
@@ -41,30 +42,16 @@ int Board::placeTile(int x, int y, Tile* tile){
 }
 
 int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
-  std::cout << "Checking Null" << '\n';
-  std::cout << y << '\n';
-    std::cout << y_change << '\n';
-    std::cout << x << '\n';
-    std::cout << x_change << '\n';
-   std::cout << map[2][2]->toString() << '\n';
    if(nullCheck(y + y_change, x + x_change) == true){
-       std::cout << "Null" << '\n';
         return 0;
-
+         
    }
-    std::cout << "6" << '\n';
-
-    std::cout << y + y_change << '\n';
-    std::cout << x + x_change << '\n';
    if(y + y_change > y_size || x + x_change > x_size || y + y_change < 0 || x + x_change < 0){
        return 0;
    }
-    std::cout << y + y_change << '\n';
-    std::cout << x + x_change << '\n';
    if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x + x_change]->getColour() == tile->getColour()){
      std::cout << "checking straightline" << '\n';
        return straightLine(y, x, x_change, y_change, 0, 0);
-       std::cout << "done checking straightline" << '\n';
    }
 
    std::cout << "done checking relative pos" << '\n';
@@ -72,6 +59,9 @@ int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
 }
 
 int Board::straightLine(int y_start, int x_start, int x_change, int y_change, int length, int score){
+    std::cout << y_change << '\n';
+    std::cout << x_change << '\n';
+    std::cout << score << '\n';
     if(length > 6){
         return -1;
     }
@@ -86,7 +76,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
             score++;
             length++;
             y_change++;
-            straightLine(y_start, x_start, x_change, y_change, length, score);
+            return straightLine(y_start, x_start, x_change, y_change, length, score);
         }
     }
     if(y_change < 0){
@@ -94,7 +84,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
             score++;
             length++;
             y_change--;
-            straightLine(y_start, x_start, x_change, y_change, length, score);
+            return straightLine(y_start, x_start, x_change, y_change, length, score);
              }
     }
     if(x_change > 0){
@@ -102,7 +92,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
             score++;
             length++;
             x_change++;
-            straightLine(y_start, x_start, x_change, y_change, length, score);
+            return straightLine(y_start, x_start, x_change, y_change, length, score);
              }
     }
     if(x_change < 0){
@@ -110,13 +100,15 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
             score++;
             length++;
             x_change--;
-            straightLine(y_start, x_start, x_change, y_change, length, score);
+            return straightLine(y_start, x_start, x_change, y_change, length, score);
              }
     }
     if(length == 6){
         score += 6;
          std::cout << "QWIRKLE!!!";
     }
+     std::cout << "hello" << '\n';
+     
     return score;
 }
 
