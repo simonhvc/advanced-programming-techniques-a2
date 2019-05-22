@@ -9,26 +9,26 @@ int Board::placeTile(int x, int y, Tile* tile){
     if (map[y][x] == NULL){
          int score = 0;
 
-        //IF result equals -1 the move is invalid
+        //IF result equals -1 the move is invalid 
         //IF result equals 0 there is no connected tile in that direction
 
          int result = isValid(y, x, tile, -1, 0); //Checks if there are any connecting tiles UP
-         score += result;
+         score += result; 
          if(result == -1){
              return -1;
          }
          result = isValid(y, x, tile, 1, 0); //Checks if there are any connecting tiles DOWN
-         score += result;
+         score += result; 
          if(result == -1){
               return -1;
          }
          result = isValid(y, x, tile, 0, -1);  //Checks if there are any connecting tiles RIGHT
-         score += result;
+         score += result; 
          if(result == -1){
               return -1;
          }
          result = isValid(y, x, tile, 0, 1); //Checks if there are any connecting tiles LEFT
-         score += result;
+         score += result; 
          if(result == -1){
               return -1;
          }
@@ -43,7 +43,7 @@ int Board::placeTile(int x, int y, Tile* tile){
 int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
    if(nullCheck(y + y_change, x + x_change) == true){
         return 0;
-
+         
    }
    if(y + y_change > y_size || x + x_change > x_size || y + y_change < 0 || x + x_change < 0){
        return 0;
