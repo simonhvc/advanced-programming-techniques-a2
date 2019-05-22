@@ -114,6 +114,10 @@ int Board::getIndexOfChar(char ch) {
   }
 
   return index;
+void Board::firstTile(Tile* tile){
+    int x = x_size/2;
+    int y = y_size/2;
+    map[y][x] = tile;
 }
 
 std::string Board::toString(){
