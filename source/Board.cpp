@@ -8,6 +8,7 @@ Board::Board(int y_size, int x_size){
 int Board::placeTile(int x, int y, Tile* tile){
     if (map[y][x] == NULL){
          int score = 0;
+<<<<<<< HEAD
 
         //IF result equals -1 the move is invalid 
         //IF result equals 0 there is no connected tile in that direction
@@ -16,6 +17,13 @@ int Board::placeTile(int x, int y, Tile* tile){
          score += result; 
          if(result == -1){
              return 0;
+=======
+         int result = isValid(y, x, tile, -1, 0);
+         if(result != -1){
+          std::cout << "2" << '\n';
+             score += result; //UP
+           
+>>>>>>> parent of 501e71c... Made board print more readable
          }
          result = isValid(y, x, tile, 1, 0); //Checks if there are any connecting tiles DOWN
          score += result; 
@@ -45,6 +53,13 @@ int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
         return 0;
          
    }
+<<<<<<< HEAD
+=======
+    std::cout << "6" << '\n';
+    
+    std::cout << y + y_change << '\n';
+    std::cout << x + x_change << '\n';
+>>>>>>> parent of 501e71c... Made board print more readable
    if(y + y_change > y_size || x + x_change > x_size || y + y_change < 0 || x + x_change < 0){
        return 0;
    }
@@ -136,7 +151,7 @@ void Board::firstTile(Tile* tile){
 }
 
 std::string Board::toString(){
-    std::string text = "  ";
+    std::string text = " ";
 
     std::string numbers[26] = {"1", "2", "3", "4", "5", "6", "7",
                                 "8", "9", "10", "11", "12", "13", "14",
@@ -144,7 +159,7 @@ std::string Board::toString(){
                                 "22", "23", "24", "25", "26"};
 
     for(int top = 0; top < x_size;top++){
-        text += "  " + numbers[top];
+        text += " " + numbers[top];
     }
 
     for(int y = 0; y < y_size;y++){
@@ -153,7 +168,7 @@ std::string Board::toString(){
                 text += "\n" + letters[y] + " |";
             }
             if(map[y][x] == NULL){
-                    text += "  |";
+                    text += " |";
             }
             else{
                 text += map[y][x]->toString() + "|";

@@ -134,9 +134,8 @@ void Menu::gameplayLoop() {
 
       while (response != "place") {
         std::cout << players[i]->getName() << "'s turn" << '\n';
-        std::cout << "Score for " << players[i]->getName() << ": " << players[i]->getScore() << '\n';
-        std::cout << "Your hand is:" << '\n';
-        std::cout << players[i]->handToString() << '\n';
+        std::cout << "SCORE: " << players[i]->getScore() << '\n';
+        std::cout << "Hand: " << players[i]->handToString() << '\n';
         std::cout << board->toString() << '\n';
         response = getInputStr();
         std::cout << response << '\n';
