@@ -4,6 +4,8 @@
 
 #include "Node.h"
 #include "Tile.h"
+#include "iostream"
+#include <time.h>
 
 class LinkedList {
 public:

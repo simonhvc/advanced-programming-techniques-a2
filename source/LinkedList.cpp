@@ -1,7 +1,6 @@
 
 #include "LinkedList.h"
-#include "iostream"
-#include <time.h>
+
 LinkedList::LinkedList() {
    head = nullptr;
    length = 0;
@@ -54,12 +53,14 @@ void LinkedList::addToEnd(Tile *tile){
 
 void LinkedList::print(){
     Node* head = this->head;
+    std::string text;
     int i = 1;
     while(head){
-        std::cout << " " << head->getTile()->toString() << std::endl;
+        text += head->getTile()->toString() + " ";
         head = head->getNext();
         i++;
     }
+    std::cout << text << std::endl;
 }
 
 //Need to delete tile after returning it

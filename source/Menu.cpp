@@ -111,7 +111,7 @@ void Menu::gameplayLoop() {
 
     for(int i = 0; i < 2; i++) {
 
-      while (reponse != "place") {
+      while (response != "place") {
         std::cout << players[i]->getName() << "'s turn" << '\n';
         std::cout << "Hand:" << '\n';
         players[i]->handToString();
