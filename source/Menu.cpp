@@ -150,8 +150,6 @@ void Menu::gameplayLoop() {
           hasPlacedTile = true;
         }
       }
-
-
     }
   }
 }
