@@ -1,5 +1,4 @@
 #include "Board.h"
-#include <iostream>
 
 Board::Board(int y_size, int x_size){
       this->y_size = y_size;
