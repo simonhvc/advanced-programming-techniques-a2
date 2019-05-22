@@ -216,18 +216,6 @@ void Menu::gameplayLoop() {
           score = board->placeTile(xPos - 1, yPos, tileToPlace);
           std::cout << "done placing tile" << '\n';
         }
-        else if (response.size() == 3) {
-          yPos = board->getIndexOfChar(response.at(0));
-
-          std::string x1(1, response.at(1));
-          std::string x2(1, response.at(2));
-          std::string x3 = x1 + x2;
-          xPos = std::stoi(x3);
-          std::cout << xPos << '\n';
-          std::cout << "placing tile..." << '\n';
-          score = board->placeTile(xPos - 1, yPos, tileToPlace);
-          std::cout << "done placing tile" << '\n';
-        }
 
         //Gives score if placement is valid
         if (score > 0) {
