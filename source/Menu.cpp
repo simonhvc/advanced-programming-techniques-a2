@@ -157,7 +157,7 @@ void Menu::gameplayLoop() {
 
         if (score != 0) {
           hasPlacedTile = true;
-          players[i].updateScore(score);
+          players[i]->updateScore(score);
         }
       }
     }
