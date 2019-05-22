@@ -101,24 +101,34 @@ void Menu::gameplayLoop() {
   bool loop = true;
 
   Bag* bag = new Bag();
-  Board* board = new Board(6,6);  
+  Board* board = new Board(6,6);
   players[0]->Draw(bag, 5);
   players[1]->Draw(bag, 5);
 
   while(loop) {
-    for(int i = 0; i < 2; i++) {
-      std::cout << players[i]->getName() << "'s turn" << '\n';
-      std::cout << "Hand:" << '\n';
-      players[i]->handToString();
-      std::cout << board->toString() << '\n';
 
-      std::string response = getInputStr();
+    std::string response = "";
+
+    for(int i = 0; i < 2; i++) {
+
+      while (reponse != "place") {
+        std::cout << players[i]->getName() << "'s turn" << '\n';
+        std::cout << "Hand:" << '\n';
+        players[i]->handToString();
+        std::cout << board->toString() << '\n';
+
+        response = getInputStr();
+      }
+
 
       if (response == "place") {
         std::cout << "place" << '\n';
-        std::string response = getInputStr();
+        response = getInputStr();
 
-        if(players[i]->hasTile(response.at(0), response.at(1))) {
+        char color = response.at(0);
+        int shape = response.at(1) - '0';
+
+        if(players[i]->hasTile(color, shape)) {
           std::cout << "YES" << '\n';
           return;
 

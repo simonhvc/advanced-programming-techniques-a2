@@ -7,7 +7,7 @@ class Bag {
         Bag();
         Tile* getTile();
         LinkedList* getLinkedList();
-        bool hasTile(char color, char shape);
+        bool hasTile(char color, int shape);
 
     private:
         LinkedList* tiles = new LinkedList();

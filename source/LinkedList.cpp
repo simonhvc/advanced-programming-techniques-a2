@@ -85,16 +85,15 @@ Tile* LinkedList::getRandomTile() {
     return tile;
 }
 
-bool LinkedList::hasTile(char color, char shape) {
-  int currentShape = shape - '0';
+bool LinkedList::hasTile(char color, int shape) {
   bool foundTile = false;
   Node* node = this->head;
-  if (node->getTile()->getColour() == color && node->getTile()->getShape() == currentShape) {
+  if (node->getTile()->getColour() == color && node->getTile()->getShape() == shape) {
     //foundTile = true;
   }
   while(node->getNext() != NULL && !foundTile) {
     std::cout << node->getTile()->getColour() << node->getTile()->getShape() << '\n';
-    if (node->getTile()->getColour() == color && node->getTile()->getShape() == currentShape) {
+    if (node->getTile()->getColour() == color && node->getTile()->getShape() == shape) {
       foundTile = true;
     }
     node = node->getNext();
