@@ -136,14 +136,16 @@ void Menu::gameplayLoop() {
   //The gameplay loop
   while(loop) {
 
-    std::string response = "";
-    bool hasPlacedTile = false;
-    Tile* tileToPlace = nullptr;
-    int yPos = 0;
-    int xPos = 0;
-    int score = 0;
+
 
     for(int i = 0; i < 2; i++) {
+
+      std::string response = "";
+      bool hasPlacedTile = false;
+      Tile* tileToPlace = nullptr;
+      int yPos = 0;
+      int xPos = 0;
+      int score = 0;
 
 
       //Gets the player command
@@ -216,7 +218,7 @@ void Menu::gameplayLoop() {
         }
 
         //Gives score if placement is valid
-        if (score != -1) {
+        if (score > 0) {
           hasPlacedTile = true;
           players[i]->updateScore(score);
         }
