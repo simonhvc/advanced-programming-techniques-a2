@@ -15,22 +15,22 @@ int Board::placeTile(int x, int y, Tile* tile){
          int result = isValid(y, x, tile, -1, 0); //Checks if there are any connecting tiles UP
          score += result; 
          if(result == -1){
-             return 0;
+             return -1;
          }
          result = isValid(y, x, tile, 1, 0); //Checks if there are any connecting tiles DOWN
          score += result; 
          if(result == -1){
-              return 0;
+              return -1;
          }
          result = isValid(y, x, tile, 0, -1);  //Checks if there are any connecting tiles RIGHT
          score += result; 
          if(result == -1){
-              return 0;
+              return -1;
          }
          result = isValid(y, x, tile, 0, 1); //Checks if there are any connecting tiles LEFT
          score += result; 
          if(result == -1){
-              return 0;
+              return -1;
          }
          if (score > 0){ //ONLY allows tile to be placed if it has 1 or greater score meaning it is connected to atleast 1 valid tile
              map[y][x] = tile;
@@ -50,12 +50,20 @@ int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
    }
    //CHECKS that either the Tile matches the connected tiles colour or shape
    if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x + x_change]->getColour() == tile->getColour()){
-       return straightLine(y, x, x_change, y_change, 0, 0);
+       int colourScore = straightColourLine(y, x, x_change, y_change, 0, 0, tile->getColour());
+       int shapeScore = straightShapeLine(y, x, x_change, y_change, 0, 0, tile->getShape());
+       if(colourScore != -1 && shapeScore != -1){
+            if(colourScore >= shapeScore){
+                return colourScore;
+            }
+            return shapeScore;
+       }
+       return -1;
    }
     return -1;
 }
 
-int Board::straightLine(int y_start, int x_start, int x_change, int y_change, int length, int score){
+int Board::straightColourLine(int y_start, int x_start, int x_change, int y_change, int length, int score, Colour colour){
     if(length > 6){
         return -1;
     }
@@ -69,38 +77,92 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
    if(y_start + y_change < 0 || x_start + x_change < 0){
        return score;
    }
-    if(y_change > 0){
-        if(nullCheck(y_start + y_change, x_start + x_change) == false){
-            score++;
-            length++;
-            y_change++;
-            return straightLine(y_start, x_start, x_change, y_change, length, score);
-        }
+    std::cout << "hello!!!";
+    if(nullCheck(y_start + y_change, x_start + x_change) == false){ 
+        if(map[y_start + y_change][x_start + x_change]->getColour() == colour){
+            if(y_change > 0){
+                score++;
+                length++;
+                y_change++;
+                return straightColourLine(y_start, x_start, x_change, y_change, length, score, colour);
+            }
+            if(y_change < 0){
+                score++;
+                length++;
+                y_change--;
+                return straightColourLine(y_start, x_start, x_change, y_change, length, score, colour);
+            }
+            if(x_change > 0){
+                score++;
+                length++;
+                x_change++;
+                return straightColourLine(y_start, x_start, x_change, y_change, length, score, colour);
+            }
+            if(x_change < 0){
+                score++;
+                length++;
+                x_change--;
+                return straightColourLine(y_start, x_start, x_change, y_change, length, score, colour);
+            }
     }
-    if(y_change < 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == false){
-            score++;
-            length++;
-            y_change--;
-            return straightLine(y_start, x_start, x_change, y_change, length, score);
-             }
+     std::cout << "a!!!";
+     if(length > 0){
+         return -1;
+     }
+    
+    }  
+        std::cout << "sc!!!";
+    return score;
+}
+
+int Board::straightShapeLine(int y_start, int x_start, int x_change, int y_change, int length, int score, Shape shape){
+     if(length > 6){
+        return -1;
     }
-    if(x_change > 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == false){
-            score++;
-            length++;
-            x_change++;
-            return straightLine(y_start, x_start, x_change, y_change, length, score);
-             }
+    if(length == 6){
+        score += 6;
+         std::cout << "QWIRKLE!!!";
     }
-    if(x_change < 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == false){
-            score++;
-            length++;
-            x_change--;
-            return straightLine(y_start, x_start, x_change, y_change, length, score);
-             }
+      if(y_start + y_change > y_size || x_start + x_change > x_size){
+       return score;
+   }
+   if(y_start + y_change < 0 || x_start + x_change < 0){
+       return score;
+   }
+     std::cout << "b!!!";
+    if(nullCheck(y_start + y_change, x_start + x_change) == false){ 
+        if(map[y_start + y_change][x_start + x_change]->getShape() == shape){
+            if(y_change > 0){
+                score++;
+                length++;
+                y_change++;
+                return straightShapeLine(y_start, x_start, x_change, y_change, length, score, shape);
+            }
+            if(y_change < 0){
+                score++;
+                length++;
+                y_change--;
+                return straightShapeLine(y_start, x_start, x_change, y_change, length, score, shape);
+            }
+            if(x_change > 0){
+                score++;
+                length++;
+                x_change++;
+                return straightShapeLine(y_start, x_start, x_change, y_change, length, score, shape);
+            }
+            if(x_change < 0){
+                score++;
+                length++;
+                x_change--;
+                return straightShapeLine(y_start, x_start, x_change, y_change, length, score, shape);
+            }
     }
+     std::cout << "d!!!";
+     if(length > 0){
+         return -1;
+     }
+    }  
+        std::cout << "ss!!!";
     return score;
 }
 
