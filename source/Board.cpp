@@ -20,11 +20,17 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int score, int y_chang
     for(int y_change = -1; y_change < 2; y_change += 2){
             if(map[y + y_change][x]->getColour() == tile->getColour()){
                 if(y_change > 0){
+                    if(x_change != 0){
+                        score++;
+                    }
                     y_change++;
                     score++;
                    score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 if(y_change < 0){
+                    if(x_change != 0){
+                        score++;
+                    }
                     y_change--;
                     score++;
                   score += isValid(y,x,tile,result,score,y_change,x_change);
@@ -36,11 +42,17 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int score, int y_chang
                 }
              if(map[y + y_change][x]->getShape() == tile->getShape()){
                 if(y_change > 0 ){
+                    if(x_change != 0){
+                        score++;
+                    }
                     y_change++;
                     score++;
                    score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 if(y_change < 0){
+                    if(x_change != 0){
+                        score++;
+                    }
                     y_change--;
                     score++;
                   score += isValid(y,x,tile,result,score,y_change,x_change);
@@ -53,11 +65,17 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int score, int y_chang
         for(int x_change = -1; x_change < 2; x_change += 2){
             if(map[y][x + x_change]->getColour() == tile->getColour()){
                 if(x_change > 0){
+                    if(y_change != 0){
+                        score++;
+                    }
                     x_change++;
                     score++;
                    score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 if(x_change < 0){
+                    if(y_change != 0){
+                        score++;
+                    }
                     x_change--;
                     score++;
                   score += isValid(y,x,tile,result,score,y_change,x_change);
@@ -69,11 +87,17 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int score, int y_chang
                 }
              if(map[y][x + x_change]->getShape() == tile->getShape()){
                 if(x_change > 0){
+                    if(y_change != 0){
+                        score++;
+                    }
                     x_change++;
                     score++;
                    score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 if(x_change < 0){
+                    if(y_change != 0){
+                        score++;
+                    }
                     x_change--;
                     score++;
                   score += isValid(y,x,tile,result,score,y_change,x_change);
