@@ -1,4 +1,6 @@
 #include "Menu.h"
+#include "Board.h"
+#include <string>
 
 
 Menu::Menu(){
@@ -95,15 +97,10 @@ void Menu::newGame(){
 
     for(int i = 0; i < numPlayers; i++) {
       std::cout << "Player " << i + 1 << ", enter your name (uppercase characters only): " << std::endl;
-      players[i] = new Player(getPlayerName(),0);
+      players[i] = new Player(getPlayerName());
     }
 
     std::cout << "\nLet's Play!" << std::endl;
-    this->bag = new Bag();
-    this->board = new Board(boardSize,boardSize);
-    board->firstTile(bag->getTile());
-    players[0]->Draw(bag, 5);
-    players[1]->Draw(bag, 5);
     gameplayLoop();
 }
 //THE MAIN GAMEPLAY LOOP//
@@ -132,7 +129,7 @@ void Menu::gameplayLoop() {
       int xPos;
       int score = 0;
 
-      while (response != "place") {
+      while (response != "place" && response != "replace") {
         std::cout << players[i]->getName() << "'s turn" << '\n';
         std::cout << "SCORE: " << players[i]->getScore() << '\n';
         std::cout << "Hand: " << players[i]->handToString() << '\n';
@@ -170,6 +167,8 @@ void Menu::gameplayLoop() {
           int shape = response.at(1) - '0';
 
           tileToPlace = players[i]->hasTile(color, shape);
+          players[i]->deleteTile(tileToPlace->getColour(), tileToPlace->getShape());
+          players[i]->Draw(bag, 1);
         }
 
       }
@@ -243,7 +242,7 @@ void Menu::loadGame(){
 
     std::string playerNames[] = {"",""};
     int playerScores[] = {0,0};
-    std::vector<std::vector<Tile*>> playerHands;
+    std::vector<std::vector<std::string>> playerHands;
 
     for (int i = 0; i < 2; i++){
         std::string playerName = "";
@@ -269,18 +268,14 @@ void Menu::loadGame(){
         playerHandLine = deleteReturnChar(playerHandLine);
         std::stringstream handStream(playerHandLine);
         std::string tile = "";
-        char color = 0;
-        int shape = 0;
-        std::vector<Tile*> tileVector;
+        std::vector<std::string> tileVector;
         while(getline(handStream, tile,','))
         {
             if (!(tile.length() == 2) || !(tile[0] == 'R' || tile[0] == 'O' || tile[0] == 'Y' || tile[0] == 'G' || tile[0] == 'B' || tile[0] == 'P') || !(tile[1] == '1' || tile[1] == '2' || tile[1] == '3' || tile[1] == '4' || tile[1] == '5' || tile[1] == '6')){
                 validFormat = false;
             }
             else{
-                color = tile.at(0);
-                shape = tile.at(1) - '0';
-                tileVector.push_back(new Tile(color, shape));
+                tileVector.push_back(tile);
             }
         }
 
@@ -295,20 +290,15 @@ void Menu::loadGame(){
         //validation success, set all the variable and start the game
         //for now I am just outputting them
         for (int i = 0; i < 2; i++){
-            this->players[i] = new Player(playerNames[i], playerScores[i]);
+            std::cout << playerNames[i] << std::endl;
+            std::cout << playerScores[i] << std::endl;
             for (unsigned int j = 0; j < playerHands[i].size(); j++){
-                this->players[i]->addToHand(playerHands[i][j]);
+                std::cout << playerHands[i][j] << std::endl;
             }
         }
-        this->bag = new Bag();
-        //Board* board = new Board(boardSize,boardSize);
-        //Loop to populate board
     }
-    this->board = new Board(8,8);
-    board->firstTile(bag->getTile());
     savedGame.clear();
     savedGame.close();
-    gameplayLoop();
 }
 
 

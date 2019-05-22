@@ -133,10 +133,10 @@ void LinkedList::deleteNode(char color, int shape){
         else {
           prevNode->setNext(NULL);
           free(currNode);
-
         }
-
         hasFoundTile = true;
+
+        std::cout << "FOUND!" << '\n';
       }
 
       index++;

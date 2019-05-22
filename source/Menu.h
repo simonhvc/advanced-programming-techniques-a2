@@ -5,8 +5,6 @@
 #include <fstream>
 #include <memory>
 #include "Player.h"
-#include "Tile.h"
-#include "Board.h"
 
 class Menu {
 
@@ -42,9 +40,9 @@ class Menu {
         std::string deleteReturnChar(std::string string);
 
         int selection = 0;
+        int numPlayers = 0;
+        int boardSize = 0;
         Player* players[2];
-        Bag* bag = nullptr;
-        Board* board = nullptr;
 
         /* Team members */
         const std::string students[3][3] = {
