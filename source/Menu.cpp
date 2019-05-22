@@ -85,12 +85,29 @@ void Menu::executeOption(int selection){
 //-------- New Game Initialization ---------//
 void Menu::newGame(){
     std::cout << "Starting a New Game" << std::endl;
-
     std::cout << "Enter Player Amount" << '\n';
-    numPlayers = std::stoi(getInputStr());
+    numPlayers = 0;
+    boardSize = 0;
+
+    while (numPlayers == 0) {
+      try {
+        numPlayers = std::stoi(getInputStr());
+      }
+    catch (...) {
+      numPlayers = 0;
+      }
+    }
 
     std::cout << "Enter Board Size" << '\n';
-    boardSize = std::stoi(getInputStr());
+
+    while (boardSize == 0) {
+      try {
+        boardSize = std::stoi(getInputStr());
+      }
+    catch (...) {
+      boardSize = 0;
+      }
+    }
 
     for(int i = 0; i < numPlayers; i++) {
       std::cout << "Player " << i + 1 << ", enter your name (uppercase characters only): " << std::endl;
