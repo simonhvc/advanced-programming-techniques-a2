@@ -9,9 +9,6 @@ Menu::Menu(){
 }
 
 Menu::~Menu(){
-    //delete players[0];
-    //delete players[1];
-    //delete[] players;
 }
 
 void Menu::startMenu(){
@@ -106,20 +103,29 @@ void Menu::newGame(){
 
 void Menu::gameplayLoop() {
   bool loop = true;
-
+  //Initalizes the bag and board
   Bag* bag = new Bag();
   Board* board = new Board(boardSize,boardSize);
   board->firstTile(bag->getTile());
   players[0]->Draw(bag, 5);
   players[1]->Draw(bag, 5);
 
+
+  //The gameplay loop
   while(loop) {
 
     std::string response = "";
+    bool hasPlacedTile = false;
+    Tile* tileToPlace = nullptr;
+    int yPos = 0;
+    int xPos = 0;
+    int score = 0;
 
     for(int i = 0; i < 2; i++) {
 
-      while (response != "place") {
+
+      //Gets the player command
+      while (response != "place" && response != "replace") {
         std::cout << players[i]->getName() << "'s turn" << '\n';
         std::cout << "Score for " << players[i]->getName() << ": " << players[i]->getScore() << '\n';
         std::cout << "Your hand is:" << '\n';
@@ -130,13 +136,31 @@ void Menu::gameplayLoop() {
         std::cout << response << '\n';
       }
 
-      bool hasPlacedTile = false;
-      Tile* tileToPlace = nullptr;
-      int yPos;
-      int xPos;
-      int score = 0;
+      //Prompts the player to select the tile he wants to replace
+      if (response == "replace") {
+        Tile* tiletoReplace = NULL;
+        while (tiletoReplace == nullptr) {
+          std::cout << "Chose tile to replace..." << '\n';
+          response = getInputStr();
 
-      while (tileToPlace == nullptr) {
+          if (response.size() == 2) {
+            char color = response.at(0);
+            int shape = response.at(1) - '0';
+            //Checks if the player has the tile he wants to replace
+            tiletoReplace = players[i]->hasTile(color, shape);
+          }
+
+        }
+
+        //Deletes the tile he wants to replace
+        players[i]->deleteTile(tiletoReplace->getColour(), tiletoReplace->getShape());
+        //draws a new tile
+        players[i]->Draw(bag, 1);
+        hasPlacedTile = true;
+      }
+
+      //Prompts the player to chose which tile to place
+      while (tileToPlace == nullptr && !hasPlacedTile) {
         std::cout << "Chose tile to place..." << '\n';
         response = getInputStr();
 
@@ -144,17 +168,24 @@ void Menu::gameplayLoop() {
           char color = response.at(0);
           int shape = response.at(1) - '0';
 
+          //Validates that the player has the tile
           tileToPlace = players[i]->hasTile(color, shape);
+          //Deletes the tile after use
+          players[i]->deleteTile(tileToPlace->getColour(), tileToPlace->getShape());
+          //Draws a new tile
+          players[i]->Draw(bag, 1);
         }
 
       }
 
       while (!hasPlacedTile) {
 
+        //Prompts the player to give the position he wants to place the tile on
         std::cout << "Chose position..." << '\n';
         response = getInputStr();
 
         if (response.size() == 2) {
+          //Gets the tile position
           yPos = board->getIndexOfChar(response.at(0));
           xPos = response.at(1) - '0';
           std::cout << "placing tile..." << '\n';
@@ -162,7 +193,8 @@ void Menu::gameplayLoop() {
           std::cout << "done placing tile" << '\n';
         }
 
-        if (score != 0) {
+        //Gives score if placement is valid
+        if (score != -1) {
           hasPlacedTile = true;
           players[i]->updateScore(score);
         }
