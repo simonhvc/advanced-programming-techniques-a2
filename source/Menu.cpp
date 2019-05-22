@@ -102,6 +102,7 @@ void Menu::gameplayLoop() {
 
   Bag* bag = new Bag();
   Board* board = new Board(6,6);
+  board->firstTile(bag->getTile());
   players[0]->Draw(bag, 5);
   players[1]->Draw(bag, 5);
 
@@ -118,20 +119,45 @@ void Menu::gameplayLoop() {
         std::cout << board->toString() << '\n';
 
         response = getInputStr();
+        std::cout << response << '\n';
       }
 
+      bool hasPlacedTile = false;
+      Tile* tileToPlace = nullptr;
+      int yPos;
+      int xPos;
+      int score = 0;
 
-      if (response == "place") {
-        std::cout << "place" << '\n';
+      while (tileToPlace == nullptr) {
+        std::cout << "Chose tile to place..." << '\n';
         response = getInputStr();
 
-        char color = response.at(0);
-        int shape = response.at(1) - '0';
+        if (response.size() == 2) {
+          char color = response.at(0);
+          int shape = response.at(1) - '0';
 
-        if(players[i]->hasTile(color, shape)) {
-          std::cout << "YES" << '\n';
-          return;
+          tileToPlace = players[i]->hasTile(color, shape);
+        }
 
+      }
+
+      while (!hasPlacedTile) {
+        std::cout << "Chose position..." << '\n';
+        response = getInputStr();
+        std::cout << response << '\n';
+
+        if (response.size() == 2) {
+          std::cout << response.at(0) << response.at(1) << '\n';
+          yPos = board->getIndexOfChar(response.at(0));
+          std::cout << yPos << '\n';
+          xPos = response.at(1) - '0';
+          std::cout << tileToPlace->toString() << '\n';
+          score = board->placeTile(xPos, yPos, tileToPlace);
+        }
+
+        if (score != 0) {
+          hasPlacedTile = true;
+          players[i].updateScore(score);
         }
       }
     }

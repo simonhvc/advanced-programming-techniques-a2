@@ -34,5 +34,5 @@ bool Bag::hasTile(char color, int shape) {
   return tiles->hasTile(color, shape);
 }
 Tile* Bag::getTile(){
-       return tiles->getRandomTile();
+  return tiles->getRandomTile();
 }

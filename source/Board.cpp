@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <iostream>
 
 Board::Board(int y_size, int x_size){
       this->y_size = y_size;
@@ -96,6 +97,17 @@ int Board::getY(){
     return y_size;
 }
 
+int Board::getIndexOfChar(char ch) {
+  int index;
+  for(int i = 0; i < 26; i++) {
+    std::cout << letters[i].at(0) << '\n';
+    if (letters[i].at(0) == ch) {
+      index = i;
+    }
+  }
+
+  return index;
+}
 void Board::firstTile(Tile* tile){
     int x = x_size/2;
     int y = y_size/2;
@@ -104,17 +116,14 @@ void Board::firstTile(Tile* tile){
 
 std::string Board::toString(){
     std::string text = " ";
-    std::string letters[26] = {"A", "B", "C", "D", "E", "F", "G",
-                                "H", "I", "J", "K", "L", "M", "N",
-                                "O", "P", "Q", "R", "S", "T", "U",
-                                "V", "W", "X", "Y", "Z"};
+
     std::string numbers[26] = {"1", "2", "3", "4", "5", "6", "7",
                                 "8", "9", "10", "11", "12", "13", "14",
                                 "15", "16", "17", "18", "19", "20", "21",
                                 "22", "23", "24", "25", "26"};
 
     for(int top = 0; top < x_size;top++){
-        text += " " + numbers[top]; 
+        text += " " + numbers[top];
     }
 
     //text+= " \n--------------------\n";
@@ -132,6 +141,6 @@ std::string Board::toString(){
             }
         }
     }
-   
+
     return text;
 }

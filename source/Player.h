@@ -12,7 +12,7 @@ class Player {
         void handToString();
 
         std::string getName();
-        bool hasTile(char color, int shape);
+        Tile* hasTile(char color, int shape);
 
         void updateScore(int score);
 

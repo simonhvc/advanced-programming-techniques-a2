@@ -20,11 +20,9 @@
        hand->print();
     }
 
-    bool Player::hasTile(char color, int shape) {
-      std::cout << "im here" << '\n';
-      bool hasTile = hand->hasTile(color, shape);
-      std::cout << "now im here" << '\n';
-      return hasTile;
+    Tile* Player::hasTile(char color, int shape) {
+      Tile* tile = hand->hasTile(color, shape);
+      return tile;
     }
 
     void Player::updateScore(int score){
