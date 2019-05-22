@@ -103,40 +103,62 @@ void Menu::newGame(){
     std::cout << "\nLet's Play!" << std::endl;
     gameplayLoop();
 }
-
+//THE MAIN GAMEPLAY LOOP//
 void Menu::gameplayLoop() {
   bool loop = true;
 
+  //INitalizes the bag and board
   Bag* bag = new Bag();
   Board* board = new Board(boardSize,boardSize);
+  //Places the first tile
   board->firstTile(bag->getTile());
-  players[0]->Draw(bag, 5);
-  players[1]->Draw(bag, 5);
+
+  //Players draw the first tile
+  for(int i = 0; i < numPlayers; i++) {
+    players[i]->Draw(bag, 5);
+  }
 
   while(loop) {
 
     std::string response = "";
 
-    for(int i = 0; i < 2; i++) {
-
-      while (response != "place") {
-        std::cout << players[i]->getName() << "'s turn" << '\n';
-        std::cout << "Score for " << players[i]->getName() << ": " << players[i]->getScore() << '\n';
-        std::cout << "Your hand is:" << '\n';
-        std::cout << players[i]->handToString() << '\n';
-        std::cout << board->toString() << '\n';
-
-        response = getInputStr();
-        std::cout << response << '\n';
-      }
-
+    for(int i = 0; i < numPlayers; i++) {
       bool hasPlacedTile = false;
       Tile* tileToPlace = nullptr;
       int yPos;
       int xPos;
       int score = 0;
 
-      while (tileToPlace == nullptr) {
+      while (response != "place" && response != "replace") {
+        std::cout << players[i]->getName() << "'s turn" << '\n';
+        std::cout << "SCORE: " << players[i]->getScore() << '\n';
+        std::cout << "Hand: " << players[i]->handToString() << '\n';
+        std::cout << board->toString() << '\n';
+        response = getInputStr();
+        std::cout << response << '\n';
+      }
+
+      if (response == "replace") {
+        Tile* tiletoReplace = NULL;
+        while (tiletoReplace == nullptr) {
+          std::cout << "Chose tile to replace..." << '\n';
+          response = getInputStr();
+
+          if (response.size() == 2) {
+            char color = response.at(0);
+            int shape = response.at(1) - '0';
+            tiletoReplace = players[i]->hasTile(color, shape);
+          }
+
+        }
+
+        players[i]->deleteTile(tiletoReplace->getColour(), tiletoReplace->getShape());
+        players[i]->Draw(bag, 1);
+
+        hasPlacedTile = true;
+      }
+
+      while (tileToPlace == nullptr && !hasPlacedTile) {
         std::cout << "Chose tile to place..." << '\n';
         response = getInputStr();
 
@@ -145,6 +167,8 @@ void Menu::gameplayLoop() {
           int shape = response.at(1) - '0';
 
           tileToPlace = players[i]->hasTile(color, shape);
+          players[i]->deleteTile(tileToPlace->getColour(), tileToPlace->getShape());
+          players[i]->Draw(bag, 1);
         }
 
       }
@@ -162,7 +186,7 @@ void Menu::gameplayLoop() {
           std::cout << "done placing tile" << '\n';
         }
 
-        if (score != 0) {
+        if (score != -1) {
           hasPlacedTile = true;
           players[i]->updateScore(score);
         }

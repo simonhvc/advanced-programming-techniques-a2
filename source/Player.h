@@ -13,7 +13,7 @@ class Player {
 
         std::string getName();
         Tile* hasTile(char color, int shape);
-
+        void deleteTile(char color, int shape);
         void updateScore(int score);
 
         int getScore();
