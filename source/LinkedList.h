@@ -15,7 +15,7 @@ public:
    void addToFront(Tile *tile);
    void addToEnd(Tile *tile);
    void deleteNode(Tile tile);
-   void print();
+   std::string print();
    Tile* hasTile(char color, int shape);
    Tile* getRandomTile();
    Tile* getHead();

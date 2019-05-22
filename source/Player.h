@@ -9,7 +9,7 @@ class Player {
 
         void Draw(Bag* bag, int tiles);
 
-        void handToString();
+        std::string handToString();
 
         std::string getName();
         Tile* hasTile(char color, int shape);

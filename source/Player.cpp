@@ -16,8 +16,8 @@
       return name;
     }
 
-    void Player::handToString(){
-       hand->print();
+    std::string Player::handToString(){
+       return hand->print();
     }
 
     Tile* Player::hasTile(char color, int shape) {

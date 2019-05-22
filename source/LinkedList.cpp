@@ -51,7 +51,7 @@ void LinkedList::addToEnd(Tile *tile){
 
 }
 
-void LinkedList::print(){
+std::string LinkedList::print(){
     Node* head = this->head;
     std::string text;
     int i = 1;
@@ -60,7 +60,7 @@ void LinkedList::print(){
         head = head->getNext();
         i++;
     }
-    std::cout << text << std::endl;
+    return text;
 }
 
 //Need to delete tile after returning it
@@ -91,7 +91,7 @@ Tile* LinkedList::hasTile(char color, int shape) {
   Node* node = this->head;
   Tile* returnTile = nullptr;
 
-  while(node->getNext() != NULL && !foundTile) {
+  while(node != NULL && !foundTile) {
     if (node->getTile()->getColour() == color && node->getTile()->getShape() == shape) {
       returnTile = node->getTile();
       foundTile = true;
