@@ -7,7 +7,7 @@ Board::Board(int y_size, int x_size){
 
 int Board::placeTile(int x, int y, Tile* tile){
     if (map[y][x] == NULL){
-         int score = isValid(y, x, tile, true, 0, 0, 0, 0);
+         int score = isValid(y, x, tile, true, 0, 0, 0);
          if (score > 0){
              map[y][x] = tile;
          }
@@ -16,18 +16,18 @@ int Board::placeTile(int x, int y, Tile* tile){
     return 0;
 }
 
-int Board::isValid(int y, int x, Tile* tile, bool result, int size, int score, int y_change, int x_change){
+int Board::isValid(int y, int x, Tile* tile, bool result, int score, int y_change, int x_change){
     for(int y_change = -1; y_change < 2; y_change += 2){
             if(map[y + y_change][x]->getColour() == tile->getColour()){
                 if(y_change > 0){
                     y_change++;
                     score++;
-                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                   score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 if(y_change < 0){
                     y_change--;
                     score++;
-                  score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                  score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 
             }
@@ -35,15 +35,15 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int size, int score, i
                     result = false;
                 }
              if(map[y + y_change][x]->getShape() == tile->getShape()){
-                if(y_change > 0){
+                if(y_change > 0 ){
                     y_change++;
                     score++;
-                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                   score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 if(y_change < 0){
                     y_change--;
                     score++;
-                  score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                  score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
             }
                 else if(nullCheck(y + y_change, x)){
@@ -55,12 +55,12 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int size, int score, i
                 if(x_change > 0){
                     x_change++;
                     score++;
-                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                   score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 if(x_change < 0){
                     x_change--;
                     score++;
-                  score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                  score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 
             }
@@ -71,12 +71,12 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int size, int score, i
                 if(x_change > 0){
                     x_change++;
                     score++;
-                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                   score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
                 if(x_change < 0){
                     x_change--;
                     score++;
-                  score += isValid(y,x,tile,result,size,score,y_change,x_change);
+                  score += isValid(y,x,tile,result,score,y_change,x_change);
                 }
             }
             else if(nullCheck(y, x + x_change)){
@@ -85,6 +85,20 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int size, int score, i
         }
         if (result == false){
             score = 0;
+        }
+        if (x_change > 6 || x_change < -6){
+            score = 0;
+        }
+        if (y_change > 6 || y_change < -6){
+            score = 0;
+        }
+        if (x_change == 6 || x_change == -6){
+            score += 6;
+            std::cout << "QWIRKLE!!!";
+        }
+        if (y_change == 6 || y_change == -6){
+            score += 6;
+            std::cout << "QWIRKLE!!!";
         }
     return score;
 }
