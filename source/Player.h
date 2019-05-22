@@ -18,6 +18,8 @@ class Player {
 
         void updateScore(int score);
 
+        void setName(std::string name);
+        
         int getScore();
 
     private:
