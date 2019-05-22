@@ -104,6 +104,12 @@ int Board::getY(){
     return y_size;
 }
 
+void Board::firstTile(Tile* tile){
+    int x = x_size/2;
+    int y = y_size/2;
+    map[y][x] = tile;
+}
+
 std::string Board::toString(){
     std::string text = " ";
     std::string letters[26] = {"A", "B", "C", "D", "E", "F", "G",

@@ -15,6 +15,8 @@ class Board{
 
         bool nullCheck(int y, int x);
 
+        void firstTile(Tile* tile);
+
         int getY();
 
         int getX();
