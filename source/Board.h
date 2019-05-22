@@ -12,7 +12,9 @@ class Board{
 
         int shapeScore(int y_change, int x_change, Shape shape, int score, int x, int y);
 
-        int isValid(int y, int x, Tile* tile, bool result, int score, int y_change, int x_change);
+        int isValid(int y, int x, Tile* tile, int y_change, int x_change);
+
+        int straightLine(int x_start, int y_start, int x_change, int y_change, int length);
 
         bool nullCheck(int y, int x);
 

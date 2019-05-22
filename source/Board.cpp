@@ -7,7 +7,19 @@ Board::Board(int y_size, int x_size){
 
 int Board::placeTile(int x, int y, Tile* tile){
     if (map[y][x] == NULL){
-         int score = isValid(y, x, tile, true, 0, 0, 0);
+         int score = 0;
+         if(isValid(y, x, tile, 1, 0) != -1){
+             score += isValid(y, x, tile, 1, 0); //UP
+         }
+         if(isValid(y, x, tile, -1, 0) != -1){
+             score += isValid(y, x, tile, -1, 0); //DOWN
+         }
+         if(isValid(y, x, tile, 0, 1) != -1){
+             score += isValid(y, x, tile, 0, 1); //RIGHT
+         }
+         if(isValid(y, x, tile, 0, -1) != -1){
+             score += isValid(y, x, tile, 0, -1); //LEFT
+         }
          if (score > 0){
              map[y][x] = tile;
          }
@@ -16,114 +28,56 @@ int Board::placeTile(int x, int y, Tile* tile){
     return 0;
 }
 
-int Board::isValid(int y, int x, Tile* tile, bool result, int score, int y_change, int x_change){
-    for(int y_change = -1; y_change < 2; y_change += 2){
-            if(map[y + y_change][x]->getColour() == tile->getColour()){
-                if(y_change > 0){
-                    if(x_change != 0){
-                        score++;
-                    }
-                    y_change++;
-                    score++;
-                   score += isValid(y,x,tile,result,score,y_change,x_change);
-                }
-                if(y_change < 0){
-                    if(x_change != 0){
-                        score++;
-                    }
-                    y_change--;
-                    score++;
-                  score += isValid(y,x,tile,result,score,y_change,x_change);
-                }
-                
-            }
-                else if(nullCheck(y + y_change, x)){
-                    result = false;
-                }
-             if(map[y + y_change][x]->getShape() == tile->getShape()){
-                if(y_change > 0 ){
-                    if(x_change != 0){
-                        score++;
-                    }
-                    y_change++;
-                    score++;
-                   score += isValid(y,x,tile,result,score,y_change,x_change);
-                }
-                if(y_change < 0){
-                    if(x_change != 0){
-                        score++;
-                    }
-                    y_change--;
-                    score++;
-                  score += isValid(y,x,tile,result,score,y_change,x_change);
-                }
-            }
-                else if(nullCheck(y + y_change, x)){
-                    result = false;
-                }
+int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
+   if(nullCheck(y + y_change, x + x_change)){
+        return 0;
+   }
+   if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x]->getColour() == tile->getColour()){
+       return straightLine(y, x, x_change, y_change, 0, 0);
+   }
+    return -1;
+}
+
+int Board::straightLine(int y_start, int x_start, int x_change, int y_change, int length, int score){
+    if(length > 6){
+        return -1;
+    }
+    if(y_change > 0){
+        if(nullCheck(y_start + y_change, x_start + x_change) == false){
+            score++;
+            length++;
+            y_change++;
+            straightLine(y_start, x_start, x_change, y_change, length, score);
         }
-        for(int x_change = -1; x_change < 2; x_change += 2){
-            if(map[y][x + x_change]->getColour() == tile->getColour()){
-                if(x_change > 0){
-                    if(y_change != 0){
-                        score++;
-                    }
-                    x_change++;
-                    score++;
-                   score += isValid(y,x,tile,result,score,y_change,x_change);
-                }
-                if(x_change < 0){
-                    if(y_change != 0){
-                        score++;
-                    }
-                    x_change--;
-                    score++;
-                  score += isValid(y,x,tile,result,score,y_change,x_change);
-                }
-                
-            }
-                else if(nullCheck(y, x + x_change)){
-                    result = false;
-                }
-             if(map[y][x + x_change]->getShape() == tile->getShape()){
-                if(x_change > 0){
-                    if(y_change != 0){
-                        score++;
-                    }
-                    x_change++;
-                    score++;
-                   score += isValid(y,x,tile,result,score,y_change,x_change);
-                }
-                if(x_change < 0){
-                    if(y_change != 0){
-                        score++;
-                    }
-                    x_change--;
-                    score++;
-                  score += isValid(y,x,tile,result,score,y_change,x_change);
-                }
-            }
-            else if(nullCheck(y, x + x_change)){
-                    result = false;
-                }
-        }
-        if (result == false){
-            score = 0;
-        }
-        if (x_change > 6 || x_change < -6){
-            score = 0;
-        }
-        if (y_change > 6 || y_change < -6){
-            score = 0;
-        }
-        if (x_change == 6 || x_change == -6){
-            score += 6;
-            std::cout << "QWIRKLE!!!";
-        }
-        if (y_change == 6 || y_change == -6){
-            score += 6;
-            std::cout << "QWIRKLE!!!";
-        }
+    }
+    if(y_change < 0){
+             if(nullCheck(y_start + y_change, x_start + x_change) == false){
+            score++;
+            length++;
+            y_change--;
+            straightLine(y_start, x_start, x_change, y_change, length, score);
+             }
+    }
+    if(x_change > 0){
+             if(nullCheck(y_start + y_change, x_start + x_change) == false){
+            score++;
+            length++;
+            x_change++;
+            straightLine(y_start, x_start, x_change, y_change, length, score);
+             }
+    }
+    if(x_change < 0){
+             if(nullCheck(y_start + y_change, x_start + x_change) == false){
+            score++;
+            length++;
+            x_change--;
+            straightLine(y_start, x_start, x_change, y_change, length, score);
+             }
+    }
+    if(length == 6){
+        score += 6;
+         std::cout << "QWIRKLE!!!";
+    }
     return score;
 }
 
