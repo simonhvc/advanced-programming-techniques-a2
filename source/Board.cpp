@@ -30,12 +30,20 @@ int Board::placeTile(int x, int y, Tile* tile){
 }
 
 int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
+  std::cout << "Checking Null" << '\n';
    if(nullCheck(y + y_change, x + x_change)){
         return 0;
    }
+   std::cout << "done checking null" << '\n';
+
+   std::cout << "Checking relative pos" << '\n';
    if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x]->getColour() == tile->getColour()){
+     std::cout << "checking straightline" << '\n';
        return straightLine(y, x, x_change, y_change, 0, 0);
+       std::cout << "done checking straightline" << '\n';
    }
+
+   std::cout << "done checking relative pos" << '\n';
     return -1;
 }
 
@@ -98,9 +106,8 @@ int Board::getY(){
 }
 
 int Board::getIndexOfChar(char ch) {
-  int index;
+  int index = 0;
   for(int i = 0; i < 26; i++) {
-    std::cout << letters[i].at(0) << '\n';
     if (letters[i].at(0) == ch) {
       index = i;
     }

@@ -142,17 +142,16 @@ void Menu::gameplayLoop() {
       }
 
       while (!hasPlacedTile) {
+
         std::cout << "Chose position..." << '\n';
         response = getInputStr();
-        std::cout << response << '\n';
 
         if (response.size() == 2) {
-          std::cout << response.at(0) << response.at(1) << '\n';
           yPos = board->getIndexOfChar(response.at(0));
-          std::cout << yPos << '\n';
           xPos = response.at(1) - '0';
-          std::cout << tileToPlace->toString() << '\n';
+          std::cout << "placing tile..." << '\n';
           score = board->placeTile(xPos, yPos, tileToPlace);
+          std::cout << "done placing tile" << '\n';
         }
 
         if (score != 0) {
