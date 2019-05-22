@@ -6,30 +6,30 @@ Board::Board(int y_size, int x_size){
 }
 
 int Board::placeTile(int x, int y, Tile* tile){
-    std::cout << "1";
+    std::cout << "1" << '\n';
     if (map[y][x] == NULL){
-        std::cout << "2";
          int score = 0;
          if(isValid(y, x, tile, 1, 0) != -1){
-             std::cout << "3";
+           std::cout << "2" << '\n';
              score += isValid(y, x, tile, 1, 0); //UP
          }
          if(isValid(y, x, tile, -1, 0) != -1){
-             std::cout << "4";
+           std::cout << "3" << '\n';
              score += isValid(y, x, tile, -1, 0); //DOWN
          }
          if(isValid(y, x, tile, 0, 1) != -1){
-             std::cout << "5";
+           std::cout << "4" << '\n';
              score += isValid(y, x, tile, 0, 1); //RIGHT
          }
          if(isValid(y, x, tile, 0, -1) != -1){
-             std::cout << "6";
+           std::cout << "5" << '\n';
              score += isValid(y, x, tile, 0, -1); //LEFT
          }
          if (score > 0){
-             std::cout << "7";
+           std::cout << "6" << '\n';
              map[y][x] = tile;
          }
+         std::cout << "7" << '\n';
         return score;
     }
     return 0;
