@@ -6,74 +6,62 @@ Board::Board(int y_size, int x_size){
 }
 
 int Board::placeTile(int x, int y, Tile* tile){
-    std::cout << "1" << '\n';
     if (map[y][x] == NULL){
          int score = 0;
-         int result = isValid(y, x, tile, -1, 0);
-         if(result != -1){
-          std::cout << "2" << '\n';
-             score += result; //UP
 
+        //IF result equals -1 the move is invalid 
+        //IF result equals 0 there is no connected tile in that direction
+
+         int result = isValid(y, x, tile, -1, 0); //Checks if there are any connecting tiles UP
+         score += result; 
+         if(result == -1){
+             return 0;
          }
-         result = isValid(y, x, tile, 1, 0);
-         if(result != -1){
-           std::cout << "3" << '\n';
-             score += result; //DOWN
+         result = isValid(y, x, tile, 1, 0); //Checks if there are any connecting tiles DOWN
+         score += result; 
+         if(result == -1){
+              return 0;
          }
-         result = isValid(y, x, tile, 0, -1);
-         if(result != -1){
-           std::cout << "4" << '\n';
-             score += result; //RIGHT
+         result = isValid(y, x, tile, 0, -1);  //Checks if there are any connecting tiles RIGHT
+         score += result; 
+         if(result == -1){
+              return 0;
          }
-         result = isValid(y, x, tile, 0, 1);
-         if(result != -1){
-           std::cout << "5" << '\n';
-             score += result; //LEFT
+         result = isValid(y, x, tile, 0, 1); //Checks if there are any connecting tiles LEFT
+         score += result; 
+         if(result == -1){
+              return 0;
          }
-         if (score > 0){
-           std::cout << "6" << '\n';
+         if (score > 0){ //ONLY allows tile to be placed if it has 1 or greater score meaning it is connected to atleast 1 valid tile
              map[y][x] = tile;
          }
-         std::cout << "7" << '\n';
         return score;
     }
     return 0;
 }
 
 int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
-  std::cout << "Checking Null" << '\n';
-  std::cout << y << '\n';
-    std::cout << y_change << '\n';
-    std::cout << x << '\n';
-    std::cout << x_change << '\n';
-   std::cout << map[2][2]->toString() << '\n';
    if(nullCheck(y + y_change, x + x_change) == true){
-       std::cout << "Null" << '\n';
         return 0;
-
+         
    }
-    std::cout << "6" << '\n';
-
-    std::cout << y + y_change << '\n';
-    std::cout << x + x_change << '\n';
    if(y + y_change > y_size || x + x_change > x_size || y + y_change < 0 || x + x_change < 0){
        return 0;
    }
-    std::cout << y + y_change << '\n';
-    std::cout << x + x_change << '\n';
+   //CHECKS that either the Tile matches the connected tiles colour or shape
    if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x + x_change]->getColour() == tile->getColour()){
-     std::cout << "checking straightline" << '\n';
        return straightLine(y, x, x_change, y_change, 0, 0);
-       std::cout << "done checking straightline" << '\n';
    }
-
-   std::cout << "done checking relative pos" << '\n';
     return -1;
 }
 
 int Board::straightLine(int y_start, int x_start, int x_change, int y_change, int length, int score){
     if(length > 6){
         return -1;
+    }
+    if(length == 6){
+        score += 6;
+         std::cout << "QWIRKLE!!!";
     }
       if(y_start + y_change > y_size || x_start + x_change > x_size){
        return score;
@@ -86,7 +74,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
             score++;
             length++;
             y_change++;
-            straightLine(y_start, x_start, x_change, y_change, length, score);
+            return straightLine(y_start, x_start, x_change, y_change, length, score);
         }
     }
     if(y_change < 0){
@@ -94,7 +82,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
             score++;
             length++;
             y_change--;
-            straightLine(y_start, x_start, x_change, y_change, length, score);
+            return straightLine(y_start, x_start, x_change, y_change, length, score);
              }
     }
     if(x_change > 0){
@@ -102,7 +90,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
             score++;
             length++;
             x_change++;
-            straightLine(y_start, x_start, x_change, y_change, length, score);
+            return straightLine(y_start, x_start, x_change, y_change, length, score);
              }
     }
     if(x_change < 0){
@@ -110,12 +98,8 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
             score++;
             length++;
             x_change--;
-            straightLine(y_start, x_start, x_change, y_change, length, score);
+            return straightLine(y_start, x_start, x_change, y_change, length, score);
              }
-    }
-    if(length == 6){
-        score += 6;
-         std::cout << "QWIRKLE!!!";
     }
     return score;
 }
@@ -162,8 +146,6 @@ std::string Board::toString(){
     for(int top = 0; top < x_size;top++){
         text += "  " + numbers[top];
     }
-
-    //text+= " \n--------------------\n";
 
     for(int y = 0; y < y_size;y++){
         for(int x = 0; x < x_size;x++){

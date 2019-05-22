@@ -5,6 +5,8 @@
 #include <fstream>
 #include <memory>
 #include "Player.h"
+#include "Tile.h"
+#include "Board.h"
 
 class Menu {
 
@@ -43,6 +45,8 @@ class Menu {
         int numPlayers = 2;
         int boardSize = 6;
         Player* players[2];
+        Bag* bag = nullptr;
+        Board* board = nullptr;
 
         /* Team members */
         const std::string students[3][3] = {
