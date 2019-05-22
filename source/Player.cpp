@@ -20,6 +20,10 @@
        return hand->print();
     }
 
+    void Player::setName(std::string name) {
+        this->name = name;
+    }
+
     void Player::deleteTile(char color, int shape) {
       hand->deleteNode(color, shape);
     }

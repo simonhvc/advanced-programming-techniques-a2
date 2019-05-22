@@ -1,6 +1,9 @@
 #include "Bag.h"
 
 Bag::Bag() {
+}
+
+void Bag::fillBag(){
     for(int duplicate = 0; duplicate < 2; duplicate++){
         for(int colours = 0; colours < 6; colours++){
             for(int shapes = 1; shapes < 7; shapes++){
@@ -24,9 +27,13 @@ Bag::Bag() {
                 }
             }
         }
-    }
-    //std::random_shuffle(all, 35);
+    } 
 }
+
+void Bag::addToBag(Tile* tile){
+    this->tiles->addToFront(tile);
+}
+
 LinkedList* Bag::getLinkedList() {
   return tiles;
 }

@@ -18,10 +18,12 @@ class Player {
 
         void updateScore(int score);
 
+        void setName(std::string name);
+
         int getScore();
 
     private:
-        std::string name, studentNumber, Email;
+        std::string name;
         int score;
         LinkedList* hand = new LinkedList();
 };
