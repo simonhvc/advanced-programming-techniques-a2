@@ -16,6 +16,10 @@
       return name;
     }
 
+    void Player::deleteTile(char color, int shape) {
+      hand->deleteNode(color, shape);
+    }
+
     std::string Player::handToString(){
        return hand->print();
     }

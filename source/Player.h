@@ -16,6 +16,8 @@ class Player {
 
         void updateScore(int score);
 
+        void deleteTile(char color, int shape);
+
         int getScore();
 
     private:
