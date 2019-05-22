@@ -37,14 +37,14 @@ int Board::placeTile(int x, int y, Tile* tile){
 
 int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
   std::cout << "Checking Null" << '\n';
-   if(nullCheck(y + y_change, x + x_change)){
+   if(nullCheck(y + y_change, x + x_change) == false){
         return 0;
    }
     std::cout << "6" << '\n';
    if(y + y_change > y_size || x + x_change > x_size || y + y_change < 0 || x + x_change < 0){
        return 0;
    }
-    std::cout << "7" << '\n';
+    std::cout << y + y_change << '\n';
    if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x]->getColour() == tile->getColour()){
      std::cout << "checking straightline" << '\n';
        return straightLine(y, x, x_change, y_change, 0, 0);
@@ -66,7 +66,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
        return score;
    }
     if(y_change > 0){
-        if(nullCheck(y_start + y_change, x_start + x_change) == false){
+        if(nullCheck(y_start + y_change, x_start + x_change) == true){
             score++;
             length++;
             y_change++;
@@ -74,7 +74,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
         }
     }
     if(y_change < 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == false){
+             if(nullCheck(y_start + y_change, x_start + x_change) == true){
             score++;
             length++;
             y_change--;
@@ -82,7 +82,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
              }
     }
     if(x_change > 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == false){
+             if(nullCheck(y_start + y_change, x_start + x_change) == true){
             score++;
             length++;
             x_change++;
@@ -90,7 +90,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
              }
     }
     if(x_change < 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == false){
+             if(nullCheck(y_start + y_change, x_start + x_change) == true){
             score++;
             length++;
             x_change--;
