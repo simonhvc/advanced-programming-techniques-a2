@@ -150,7 +150,7 @@ void Menu::gameplayLoop() {
           yPos = board->getIndexOfChar(response.at(0));
           xPos = response.at(1) - '0';
           std::cout << "placing tile..." << '\n';
-          score = board->placeTile(xPos, yPos, tileToPlace);
+          score = board->placeTile(xPos - 1, yPos, tileToPlace);
           std::cout << "done placing tile" << '\n';
         }
 

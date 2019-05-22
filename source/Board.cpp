@@ -9,21 +9,26 @@ int Board::placeTile(int x, int y, Tile* tile){
     std::cout << "1" << '\n';
     if (map[y][x] == NULL){
          int score = 0;
-         if(isValid(y, x, tile, 1, 0) != -1){
-           std::cout << "2" << '\n';
-             score += isValid(y, x, tile, 1, 0); //UP
+         int result = isValid(y, x, tile, -1, 0);
+         if(result != -1){
+          std::cout << "2" << '\n';
+             score += result; //UP
+           
          }
-         if(isValid(y, x, tile, -1, 0) != -1){
+         result = isValid(y, x, tile, 1, 0);
+         if(result != -1){
            std::cout << "3" << '\n';
-             score += isValid(y, x, tile, -1, 0); //DOWN
+             score += result; //DOWN
          }
-         if(isValid(y, x, tile, 0, 1) != -1){
+         result = isValid(y, x, tile, 0, -1);
+         if(result != -1){
            std::cout << "4" << '\n';
-             score += isValid(y, x, tile, 0, 1); //RIGHT
+             score += result; //RIGHT
          }
-         if(isValid(y, x, tile, 0, -1) != -1){
+         result = isValid(y, x, tile, 0, 1);
+         if(result != -1){
            std::cout << "5" << '\n';
-             score += isValid(y, x, tile, 0, -1); //LEFT
+             score += result; //LEFT
          }
          if (score > 0){
            std::cout << "6" << '\n';
@@ -37,15 +42,26 @@ int Board::placeTile(int x, int y, Tile* tile){
 
 int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
   std::cout << "Checking Null" << '\n';
-   if(nullCheck(y + y_change, x + x_change) == false){
+  std::cout << y << '\n';
+    std::cout << y_change << '\n';
+    std::cout << x << '\n';
+    std::cout << x_change << '\n';
+   std::cout << map[2][2]->toString() << '\n';
+   if(nullCheck(y + y_change, x + x_change) == true){
+       std::cout << "Null" << '\n';
         return 0;
+         
    }
     std::cout << "6" << '\n';
+    
+    std::cout << y + y_change << '\n';
+    std::cout << x + x_change << '\n';
    if(y + y_change > y_size || x + x_change > x_size || y + y_change < 0 || x + x_change < 0){
        return 0;
    }
     std::cout << y + y_change << '\n';
-   if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x]->getColour() == tile->getColour()){
+    std::cout << x + x_change << '\n';
+   if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x + x_change]->getColour() == tile->getColour()){
      std::cout << "checking straightline" << '\n';
        return straightLine(y, x, x_change, y_change, 0, 0);
        std::cout << "done checking straightline" << '\n';
@@ -66,7 +82,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
        return score;
    }
     if(y_change > 0){
-        if(nullCheck(y_start + y_change, x_start + x_change) == true){
+        if(nullCheck(y_start + y_change, x_start + x_change) == false){
             score++;
             length++;
             y_change++;
@@ -74,7 +90,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
         }
     }
     if(y_change < 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == true){
+             if(nullCheck(y_start + y_change, x_start + x_change) == false){
             score++;
             length++;
             y_change--;
@@ -82,7 +98,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
              }
     }
     if(x_change > 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == true){
+             if(nullCheck(y_start + y_change, x_start + x_change) == false){
             score++;
             length++;
             x_change++;
@@ -90,7 +106,7 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
              }
     }
     if(x_change < 0){
-             if(nullCheck(y_start + y_change, x_start + x_change) == true){
+             if(nullCheck(y_start + y_change, x_start + x_change) == false){
             score++;
             length++;
             x_change--;
@@ -106,9 +122,9 @@ int Board::straightLine(int y_start, int x_start, int x_change, int y_change, in
 
 bool Board::nullCheck(int y, int x){
     if(map[y][x] == NULL){
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 
 int Board::getX(){
