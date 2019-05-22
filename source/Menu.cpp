@@ -152,7 +152,7 @@ void Menu::gameplayLoop() {
 
         }
 
-        players[i]->deleteTile(tiletoReplace->getColour(), tileToPlace->getShape());
+        players[i]->deleteTile(tiletoReplace->getColour(), tiletoReplace->getShape());
         players[i]->Draw(bag, 1);
 
         hasPlacedTile = true;
@@ -186,7 +186,7 @@ void Menu::gameplayLoop() {
           std::cout << "done placing tile" << '\n';
         }
 
-        if (score != 0) {
+        if (score != -1) {
           hasPlacedTile = true;
           players[i]->updateScore(score);
         }
