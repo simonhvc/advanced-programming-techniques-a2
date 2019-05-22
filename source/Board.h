@@ -14,7 +14,7 @@ class Board{
 
         int isValid(int y, int x, Tile* tile, int y_change, int x_change);
 
-        int straightLine(int x_start, int y_start, int x_change, int y_change, int length);
+        int straightLine(int y_start, int x_start, int x_change, int y_change, int length, int score);
 
         int getIndexOfChar(char ch);
 
