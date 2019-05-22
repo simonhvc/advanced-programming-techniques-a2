@@ -5,7 +5,7 @@
 class Player {
 
     public:
-        Player(std::string name);
+        Player(std::string name, int score);
 
         void Draw(Bag* bag, int tiles);
 
@@ -16,10 +16,12 @@ class Player {
 
         void updateScore(int score);
 
+        void addToHand(Tile* tile);
+
         int getScore();
 
     private:
-        std::string name, studentNumber, Email;
+        std::string name;
         int score;
         LinkedList* hand = new LinkedList();
 };

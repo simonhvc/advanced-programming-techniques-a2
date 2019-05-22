@@ -1,15 +1,19 @@
 #include "Player.h"
 #include <iostream>
 
-    Player::Player(std::string name)
+    Player::Player(std::string name, int score):name(name),score(score)
     {
-      this->name = name;
+      
     }
 
     void Player::Draw(Bag* bag, int tiles){
       for(int i = 0; i < tiles; i++){
         hand->addToEnd(bag->getTile());
       }
+    }
+
+    void Player::addToHand(Tile* tile){
+        this->hand->addToEnd(tile);
     }
 
     std::string Player::getName() {
