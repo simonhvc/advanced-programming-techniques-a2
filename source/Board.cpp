@@ -40,9 +40,11 @@ int Board::isValid(int y, int x, Tile* tile, int y_change, int x_change){
    if(nullCheck(y + y_change, x + x_change)){
         return 0;
    }
+    std::cout << "6" << '\n';
    if(y + y_change > y_size || x + x_change > x_size || y + y_change < 0 || x + x_change < 0){
        return 0;
    }
+    std::cout << "7" << '\n';
    if(map[y + y_change][x + x_change]->getShape() == tile->getShape() || map[y + y_change][x]->getColour() == tile->getColour()){
      std::cout << "checking straightline" << '\n';
        return straightLine(y, x, x_change, y_change, 0, 0);
