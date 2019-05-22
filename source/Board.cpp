@@ -29,7 +29,7 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int size, int score, i
                     score++;
                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
                 }
-                
+
             }
                 else if(nullCheck(y + y_change, x)){
                     result = false;
@@ -62,7 +62,7 @@ int Board::isValid(int y, int x, Tile* tile, bool result, int size, int score, i
                     score++;
                   score += isValid(y,x,tile,result,size,score,y_change,x_change);
                 }
-                
+
             }
                 else if(nullCheck(y, x + x_change)){
                     result = false;
@@ -104,19 +104,28 @@ int Board::getY(){
     return y_size;
 }
 
+int Board::getIndexOfChar(char ch) {
+  int index;
+
+  for(int i = 0; i < 27; i++) {
+    if (letters[i].at(0) == ch) {
+      index = i;
+    }
+  }
+
+  return index;
+}
+
 std::string Board::toString(){
     std::string text = " ";
-    std::string letters[26] = {"A", "B", "C", "D", "E", "F", "G",
-                                "H", "I", "J", "K", "L", "M", "N",
-                                "O", "P", "Q", "R", "S", "T", "U",
-                                "V", "W", "X", "Y", "Z"};
+
     std::string numbers[26] = {"1", "2", "3", "4", "5", "6", "7",
                                 "8", "9", "10", "11", "12", "13", "14",
                                 "15", "16", "17", "18", "19", "20", "21",
                                 "22", "23", "24", "25", "26"};
 
     for(int top = 0; top < x_size;top++){
-        text += " " + numbers[top]; 
+        text += " " + numbers[top];
     }
 
     //text+= " \n--------------------\n";
@@ -134,6 +143,6 @@ std::string Board::toString(){
             }
         }
     }
-   
+
     return text;
 }

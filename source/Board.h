@@ -13,6 +13,8 @@ class Board{
 
         int isValid(int y, int x, Tile* tile, bool result, int size, int score, int y_change, int x_change);
 
+        int getIndexOfChar(char ch);
+
         bool nullCheck(int y, int x);
 
         int getY();
@@ -22,6 +24,10 @@ class Board{
         std::string toString();
 
     private:
+      std::string letters[26] = {"A", "B", "C", "D", "E", "F", "G",
+                                  "H", "I", "J", "K", "L", "M", "N",
+                                  "O", "P", "Q", "R", "S", "T", "U",
+                                  "V", "W", "X", "Y", "Z"};
         Tile* map[26][26];
         int x_size;
         int y_size;
