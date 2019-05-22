@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <iostream>
 
 Board::Board(int y_size, int x_size){
       this->y_size = y_size;
@@ -106,14 +107,15 @@ int Board::getY(){
 
 int Board::getIndexOfChar(char ch) {
   int index;
-
-  for(int i = 0; i < 27; i++) {
+  for(int i = 0; i < 26; i++) {
+    std::cout << letters[i].at(0) << '\n';
     if (letters[i].at(0) == ch) {
       index = i;
     }
   }
 
   return index;
+}
 void Board::firstTile(Tile* tile){
     int x = x_size/2;
     int y = y_size/2;
