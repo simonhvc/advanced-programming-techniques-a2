@@ -93,9 +93,9 @@ void Menu::newGame(){
     std::cout << "Player 2, enter your name (uppercase characters only): " << std::endl;
     players[1] = new Player(getPlayerName());
     std::cout << "\nLet's Play!" << std::endl;
-    //ToDo GAMEPLAY starts here
     gameplayLoop();
 }
+
 
 void Menu::gameplayLoop() {
   bool loop = true;
