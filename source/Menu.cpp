@@ -152,7 +152,9 @@ void Menu::gameplayLoop() {
           std::cout << yPos << '\n';
           xPos = response.at(1) - '0';
           std::cout << tileToPlace->toString() << '\n';
+          std::cout << "here" << '\n';
           score = board->placeTile(xPos, yPos, tileToPlace);
+          std::cout << "hello" << '\n';
         }
 
         if (score != 0) {
